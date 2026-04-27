@@ -1,0 +1,13 @@
+{
+  "name": "praxisprojekt_so_2026",
+  "version": "1.0.0",
+  "homepage": "https://github.com/emirguerk/Praxisprojekt_SO_2026#readme",
+  "author": "emirhan.guerkan",
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  },
+  "scripts": {
+    "clean-build": "if exist public\\dist rmdir public\\dist /s /q",
+    "build": "clean-build && npx tsc"
+  }
+}
