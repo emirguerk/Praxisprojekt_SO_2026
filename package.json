@@ -7,7 +7,9 @@
     "typescript": "^6.0.3"
   },
   "scripts": {
-    "clean-build": "if exist public\\dist rmdir public\\dist /s /q",
-    "build": "clean-build && npx tsc"
+    "clean:build": "if exist public\\dist rmdir public\\dist -s q && if exist private\\dist rmdir private\\dist -s -q ",
+    "build:server": "npx tsc -p tsconfigs\\tsconfig.server.json",
+    "build:addin": "npx tsc -p tsconfigs\\tsconfig.addin.json",
+    "build:app": "npm run clean:build && npm run build:server && npm run build:addin"
   }
 }
