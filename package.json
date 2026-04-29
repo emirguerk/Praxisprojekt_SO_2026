@@ -4,12 +4,18 @@
   "homepage": "https://github.com/emirguerk/Praxisprojekt_SO_2026#readme",
   "author": "emirhan.guerkan",
   "devDependencies": {
+    "@types/express": "^5.0.6",
     "typescript": "^6.0.3"
   },
+  "dependencies": {
+    "express": "^5.2.1",
+    "path": "^0.12.7"
+  },
   "scripts": {
-    "clean:build": "if exist public\\dist rmdir public\\dist -s q && if exist private\\dist rmdir private\\dist -s -q ",
+    "clean:build": "if exist public\\dist rmdir public\\dist /s /q && if exist private\\dist rmdir private\\dist /s /q ",
     "build:server": "npx tsc -p tsconfigs\\tsconfig.server.json",
     "build:addin": "npx tsc -p tsconfigs\\tsconfig.addin.json",
-    "build:app": "npm run clean:build && npm run build:server && npm run build:addin"
+    "build:app": "npm run clean:build && npm run build:server && npm run build:addin",
+    "start:server": "node private/dist/server.js"
   }
 }
