@@ -1,4 +1,4 @@
 node_modules
 
-// local dev certs
-private/cert
+public/dist
+private
