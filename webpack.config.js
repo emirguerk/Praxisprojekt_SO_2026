@@ -1,18 +1,10 @@
 const fs = require("fs");
 const path = require("path");
 
-const entry = {};
-
-fs.readdirSync("./src/addin")
-  .filter(file => file.endsWith(".ts"))
-  .forEach(file => {
-    entry[path.basename(file, ".ts")] =
-      "./src/addin/" + file;
-  });
 
 module.exports = {
   mode: "development",
-  entry,
+  entry: "./src/addin/index.ts",
 
   module: {
     rules: [
@@ -35,7 +27,6 @@ module.exports = {
 
   output: {
     filename: "index.js",
-    path: path.resolve(__dirname, "public/dist"
-    )
+    path: path.resolve(__dirname, "public/dist")
   }
 };
