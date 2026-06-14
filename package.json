@@ -5,17 +5,23 @@
   "author": "emirhan.guerkan",
   "devDependencies": {
     "@types/express": "^5.0.6",
+    "@types/office-js": "^1.0.592",
+    "@types/office-runtime": "^1.0.37",
     "office-addin-dev-certs": "^2.0.7",
-    "typescript": "^6.0.3"
+    "ts-loader": "^9.6.0",
+    "typescript": "^6.0.3",
+    "webpack": "^5.107.2",
+    "webpack-cli": "^7.0.3"
   },
   "dependencies": {
+    "apexcharts": "^5.15.0",
     "express": "^5.2.1",
     "path": "^0.12.7"
   },
   "scripts": {
     "clean:build": "if exist public\\dist rmdir public\\dist /s /q && if exist private\\dist rmdir private\\dist /s /q ",
     "build:server": "npx tsc -p tsconfigs\\tsconfig.server.json",
-    "build:addin": "npx tsc -p tsconfigs\\tsconfig.addin.json",
+    "build:addin": "webpack",
     "build:app": "npm run clean:build && npm run build:server && npm run build:addin",
     "start:server": "node private/dist/server.js"
   }
