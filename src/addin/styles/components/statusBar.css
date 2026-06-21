@@ -1,0 +1,42 @@
+header{
+    status-bar >  ol{
+        --progress-width: 33.33%;
+        
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-around;
+        list-style: decimal;
+        position: relative;
+
+        li{
+            padding: var(--space-sm);
+        }
+
+        li:first-child{
+            font-weight: var(--font-weight-bold);
+        }
+
+        &:before{
+            content: "";
+            display: block;
+            width: 100%;
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            border: 5px solid var(--color-6CA2BF-30);
+            border-radius: var(--radius-sm);
+        }
+
+        &:after{
+            content: "";
+            display: block;
+            width: var(--progress-width);
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            border: 5px solid var(--color-active);
+            border-radius: var(--radius-sm);
+            transition: width var(--duration-md);
+        }
+    }
+}
