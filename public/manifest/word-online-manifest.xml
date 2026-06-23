@@ -11,13 +11,14 @@
   <ProviderName>Emirhan</ProviderName>
   <DefaultLocale>de-DE</DefaultLocale>
 
-  <DisplayName DefaultValue="HelloCharts"/>
-  <Description DefaultValue="Ein minimales Add-in für Word Online."/>
+  <DisplayName DefaultValue="MyCustomCharts"/>
+  <Description DefaultValue="Ein minimales Add-in zum erstellen und verwalten von Charts für Word Online."/>
 
-  <IconUrl DefaultValue="https://localhost:3000/assets/EG32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/EG80.png"/>
+  <IconUrl DefaultValue="https://localhost:3000/assets/logo_32x32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/logo_80x80.png"/>
 
-  <SupportUrl DefaultValue="https://localhost:3000/support.html"/>
+  <!-- Github ReadMe -->
+  <!-- <SupportUrl DefaultValue="https://localhost:3000/support.html"/> -->
 
   <AppDomains>
     <AppDomain>https://localhost:3000</AppDomain>
@@ -28,7 +29,7 @@
   </Hosts>
 
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://localhost:3000/fallback.html"/>
+    <SourceLocation DefaultValue="https://localhost:3000/taskPane.html"/>
   </DefaultSettings>
 
   <Permissions>ReadWriteDocument</Permissions>
@@ -43,9 +44,9 @@
         <DesktopFormFactor>
           <ExtensionPoint xsi:type="PrimaryCommandSurface">
 
-            <CustomTab id="HelloCharts.Tab">
-              <Label resid="tabLabel" />
-              <Group id="HelloCharts.Group">
+            <OfficeTab id="TabInsert">
+
+              <Group id="MyCustomCharts.Group">
                 <Label resid="groupLabel"/>
 
                 <Icon>
@@ -54,7 +55,7 @@
                   <bt:Image size="80" resid="icon80"/>
                 </Icon>
 
-                <Control xsi:type="Button" id="HelloCharts.Open.Button">
+                <Control xsi:type="Button" id="MyCustomCharts.Open.Button">
                   <Label resid="buttonLabel"/>
 
                   <Supertip>
@@ -69,13 +70,14 @@
                   </Icon>
 
                   <Action xsi:type="ShowTaskpane">
-                    <TaskpaneId>HelloCharts.Taskpane</TaskpaneId>
+                    <TaskpaneId>MyCustomCharts.Taskpane</TaskpaneId>
                     <SourceLocation resid="taskpaneUrl"/>
                   </Action>
                 </Control>
 
               </Group>
-            </CustomTab>
+
+            </OfficeTab>
           </ExtensionPoint>
         </DesktopFormFactor>
 
@@ -84,23 +86,22 @@
 
     <Resources>
       <bt:Images>
-        <bt:Image id="icon16" DefaultValue="https://localhost:3000/assets/EG16.png"/>
-        <bt:Image id="icon32" DefaultValue="https://localhost:3000/assets/EG32.png"/>
-        <bt:Image id="icon80" DefaultValue="https://localhost:3000/assets/EG80.png"/>
+        <bt:Image id="icon16" DefaultValue="https://localhost:3000/assets/logo_16x16.png"/>
+        <bt:Image id="icon32" DefaultValue="https://localhost:3000/assets/logo_32x32.png"/>
+        <bt:Image id="icon80" DefaultValue="https://localhost:3000/assets/logo_80x80.png"/>
       </bt:Images>
 
       <bt:Urls>
-        <bt:Url id="taskpaneUrl" DefaultValue="https://localhost:3000/index.html"/>
+        <bt:Url id="taskpaneUrl" DefaultValue="https://localhost:3000/taskPane.html"/>
       </bt:Urls>
 
       <bt:ShortStrings>
-        <bt:String id="tabLabel" DefaultValue="HelloCharts"/>
-        <bt:String id="groupLabel" DefaultValue="Charts"/>
-        <bt:String id="buttonLabel" DefaultValue="Create New Chart"/>
+        <bt:String id="groupLabel" DefaultValue="MyCustomCharts"/>
+        <bt:String id="buttonLabel" DefaultValue="Open"/>
       </bt:ShortStrings>
 
       <bt:LongStrings>
-        <bt:String id="buttonDescription" DefaultValue="Open the HelloCharts task pane"/>
+        <bt:String id="buttonDescription" DefaultValue="Open MyCustomCharts task pane to create new charts"/>
       </bt:LongStrings>
     </Resources>
 
