@@ -1,0 +1,19 @@
+/* primary button */
+.primary-button{
+    border: none;
+    border-radius: var(--radius-xxs);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: var(--space-sm);
+    transition: background-color var(--duration-s);
+
+    &:hover{
+        background-color: var(--color-active);
+        cursor: pointer;
+    }
+
+    &:active{
+        background-color: var(--color-active-darker);
+        cursor: pointer;
+    }
+}
