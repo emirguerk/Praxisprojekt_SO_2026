@@ -1,0 +1,14 @@
+#content-container{
+    margin-top: var(--space-ssm);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-md);
+}
+
+@media (max-width: 800px) {
+    #content-container{
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}

@@ -7,6 +7,9 @@ import "../styles/components/dropdown.css"
 import "../styles/components/statusBar.css"
 import "../styles/components/headerCommandBar.css"
 import "../styles/components/link.css"
+import "../styles/components/figure.css"
+import "../styles/components/contentContainer.css"
+import "../styles/components/table.css"
 
 export function initDialogStyles(){
     // setTimeout(() => {

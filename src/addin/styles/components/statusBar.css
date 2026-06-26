@@ -1,5 +1,5 @@
-header{
-    status-bar >  ol{
+status-bar{
+    & > ol{
         --progress-width: 33.33%;
         
         display: flex;

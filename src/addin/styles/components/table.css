@@ -1,0 +1,50 @@
+custom-table{
+    overflow: auto;
+    max-height: 441px;
+
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+
+    table {
+        background-color: var(--color-container-background);
+        border-collapse: collapse;
+        width: 100%;
+
+        input{
+            padding: var(--space-xs);
+            border: none;
+            background-color: var(--color-container-background);
+            text-align: center;
+        }
+
+        input, button{
+            height: 36px;
+            border-radius: 0;
+        }
+
+        tbody input{
+            width: 100%;
+        }
+
+        th, thead input{
+            background-color: var(--color-primary);
+        }
+
+        th:hover{
+            cursor: default;
+        }
+
+        th, th input{
+            font-weight: var(--font-weight-bold);
+        }
+
+        thead{
+            tr > th:first-child{
+                background-color: var(--color-active);
+            }
+        }
+    }
+}

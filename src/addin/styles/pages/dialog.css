@@ -1,6 +1,14 @@
-main{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+#root{
+    min-height: 100%;
+
+    & > header{
+         padding: 0 var(--space-sm);
+    }
+    
+    & > main{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
 }

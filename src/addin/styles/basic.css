@@ -16,6 +16,5 @@ body{
 
 #root{
     padding: var(--space-ssm) var(--space-xxl);
-    height: 100%;
     background-color: var(--color-white);
 }
