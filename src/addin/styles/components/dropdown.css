@@ -1,0 +1,43 @@
+.dropdown-container{
+    position: relative;
+    overflow: hidden;
+
+    &.is-visible > button{
+        border-bottom: var(--space-xs) solid var(--color-border);
+    }
+
+    &.is-visible{
+        overflow: visible;
+    }
+
+    .dropdown{
+        background-color: var(--color-primary);
+        position: absolute;
+        top: 25px;
+        left: 0;
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-bottom-left-radius: var(--radius-xxs);
+        border-bottom-right-radius: var(--radius-xxs);
+
+        &>li , .button{
+            width: 100%;
+        }
+
+        .button, .primary-button, .secondary-button{
+            border: none;
+
+            &:hover, &:active{
+                background-color: var(--color-primary);
+            }
+
+            &:active{
+                color: var(--color-active);
+            }
+        }
+    }
+}

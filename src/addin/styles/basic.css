@@ -1,3 +1,7 @@
+*{
+    box-sizing: border-box;
+}
+
 html,
 body {
     height: 100%;
@@ -11,7 +15,6 @@ body{
 }
 
 #root{
-    box-sizing: border-box;
     padding: var(--space-ssm) var(--space-xxl);
     height: 100%;
     background-color: var(--color-white);
