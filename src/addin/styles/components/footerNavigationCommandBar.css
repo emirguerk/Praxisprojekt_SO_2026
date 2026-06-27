@@ -1,0 +1,10 @@
+footer-navigation{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    .primary-button{
+        padding: var(--space-sm) var(--space-md);
+    }
+}

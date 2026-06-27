@@ -4,6 +4,7 @@ header-action-bar{
     align-items: center;
     width: 100%;
     padding: 0 var(--space-sm);
+    margin-top: var(--space-ssm);
 
     nav{
         display: flex;

@@ -3,7 +3,13 @@
     overflow: hidden;
 
     &.is-visible > button{
-        border-bottom: var(--space-xs) solid var(--color-border);
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    &.is-visible > .dropdown{
+        border-top: var(--space-xs) solid var(--color-border);
+        top: 24px;
     }
 
     &.is-visible{

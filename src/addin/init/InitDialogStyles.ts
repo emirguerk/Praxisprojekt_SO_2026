@@ -10,6 +10,7 @@ import "../styles/components/link.css"
 import "../styles/components/figure.css"
 import "../styles/components/contentContainer.css"
 import "../styles/components/table.css"
+import "../styles/components/footerNavigationCommandBar.css"
 
 export function initDialogStyles(){
     // setTimeout(() => {
