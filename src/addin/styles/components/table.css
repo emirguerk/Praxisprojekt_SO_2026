@@ -1,50 +1,49 @@
 custom-table{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
     overflow: auto;
-    max-height: 441px;
+    width: 100%;
+    max-height: 440px;
+    background-color: var(--color-container-background);
 
     table,
     th,
     td {
-        border: 1px solid black;
+        border: var(--border-xs) solid var(--color-black);
+        border-collapse: collapse;
+        cursor: default;
     }
 
-    table {
-        background-color: var(--color-container-background);
-        border-collapse: collapse;
-        width: 100%;
-
-        input{
-            padding: var(--space-xs);
-            border: none;
-            background-color: var(--color-container-background);
-            text-align: center;
-        }
-
-        input, button{
-            height: 36px;
-            border-radius: 0;
-        }
-
-        tbody input{
-            width: 100%;
-        }
-
-        th, thead input{
-            background-color: var(--color-primary);
-        }
-
-        th:hover{
-            cursor: default;
-        }
+    table{
 
         th, th input{
+            background-color: var(--color-primary);
             font-weight: var(--font-weight-bold);
         }
 
-        thead{
-            tr > th:first-child{
-                background-color: var(--color-active);
-            }
+        th input{
+            height: 25px;
+        }
+
+        td input{
+            background-color: var(--color-container-background);
+            width: 100%;
+            height: 35px;
+        } 
+
+        thead th:first-child{
+            background-color: var(--color-active);
+        }
+
+        input, button{
+            border: none;
+            border-radius: 0;
+        }
+
+        input, th{
+            padding: var(--space-xxs);
+            text-align: center;
         }
     }
 }
