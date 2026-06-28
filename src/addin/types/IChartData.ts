@@ -5,7 +5,7 @@ export type IChartData = {
     xaxis: { categories: string[] }
 }
 
-export type IDefaultChartData = {
+export type IBarOrLineChartData = {
     chart: { type: string, toolbar: { show: boolean } },
     series: { name: string, data: number[] }[],
     xaxis: { categories: string[] }

@@ -1,6 +1,6 @@
 import ApexCharts, { ApexOptions } from "apexcharts"
 import { ChartTypes } from "../enums/ChartType"
-import { IChartData, IDefaultChartData, IDonutChartData } from "../types/IChartData"
+import { IChartData, IBarOrLineChartData, IDonutChartData } from "../types/IChartData"
 
 class Chart{
     private _apexChartsInstance ?: ApexCharts
@@ -52,12 +52,12 @@ class Chart{
         this._apexChartsInstance?.render()
     }
 
-    private getDefaultChartData(): IDefaultChartData {
+    private getDefaultChartData(): IBarOrLineChartData {
         return {
             chart: this._globalChartData.chart,
             series: this._globalChartData.series.map((serie) => ({ name: serie.name, data: serie.data })),
             xaxis: this._globalChartData.xaxis
-        } as IDefaultChartData
+        } as IBarOrLineChartData
     }
 
     private getDonutChartData(): IDonutChartData {
