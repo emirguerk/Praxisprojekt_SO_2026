@@ -1,6 +1,7 @@
 .dropdown-container{
     position: relative;
     overflow: hidden;
+    z-index: 1;
 
     &.is-visible > button{
         border-bottom-left-radius: 0;

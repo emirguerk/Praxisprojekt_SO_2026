@@ -1,0 +1,11 @@
+custom-chart #chart{
+    min-width: 440px;
+    width: 440px;
+    min-height: 440px;
+    height: 440px;
+    background-color: var(--color-container-background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}

@@ -29,13 +29,21 @@ function toggleDropdownButton(dropdownButtons: NodeListOf<HTMLElement>, chartTyp
     dropdownButtons.forEach((dropDownButton) => {
         dropDownButton.addEventListener('click', () => {
             const newNewChartType = getNewChartType(dropDownButton)
-
-            ChartInstance.chartType = newNewChartType
-
+            
             chartType.textContent = newNewChartType
+            convertChart(newNewChartType)
+
             dropdownContainer.classList.toggle('is-visible')
         })
     })
+}
+
+function convertChart(chartType: ChartTypes){
+    chartType === ChartTypes.BAR
+    ? ChartInstance.convertToBarChart()
+    : chartType === ChartTypes.DONUT
+    ? ChartInstance.convertToDonutChart()
+    : ChartInstance.convertToLineChart()
 }
 
 function toggleDropdown(button : HTMLElement, dropdownContainer: HTMLElement){
