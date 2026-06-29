@@ -14,6 +14,5 @@ export type IBarOrLineChartData = {
 export type IDonutChartData = {
     chart: { type: string, toolbar: { show: boolean } },
     series: number[],
-    labels: string[],
-    xaxis: { categories: string[] }
+    labels: string[]
 }

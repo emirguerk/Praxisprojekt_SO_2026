@@ -1,75 +1,130 @@
 import ApexCharts, { ApexOptions } from "apexcharts"
 import { ChartTypes } from "../enums/ChartType"
-import { IChartData, IBarOrLineChartData, IDonutChartData } from "../types/IChartData"
+import { IBarOrLineChartData, IDonutChartData } from "../types/IChartData"
 
 class Chart{
+    private _currentChartType : ChartTypes
     private _apexChartsInstance ?: ApexCharts
-    private _globalChartData : IChartData = {
-        chart: { type: 'bar', toolbar: { show: false } },
-        series: [
-            { name: 'Beispiel 1', data: [1, 2, 3] }, 
-            { name: 'Beispiel 2', data: [1, 2, 3] }
-        ],
-        labels: ['Beispiel 1', 'Beispiel 2'],
-        xaxis: { categories: ["#1", "#2", "#3"] }
+    private _chartDataMap : Map<string, number[]> = new Map()
+
+    constructor(){
+        this._chartDataMap.set("Beispiel 1", [1, 2, 3])
+        this._chartDataMap.set("Beispiel 2", [1, 2, 3])
+        this._currentChartType = ChartTypes.BAR
     }
 
     public initChart(chartOption ?: ApexOptions){
         this._apexChartsInstance = new ApexCharts(
             document.querySelector('#chart') as HTMLElement, 
-            chartOption ?? this.getDefaultChartData() as ApexOptions
+            chartOption ?? this.getDefaultChartData(this.getChartTypeLowerCase(ChartTypes.BAR)) as ApexOptions
         )
     }
 
+    public updateMapKeys(oldValue: string, newValue: string){
+        const newMap = new Map<string, number[]>();
+
+        for (const [key, value] of this._chartDataMap) {
+            newMap.set(
+                key === oldValue ? newValue : key,
+                value
+            );
+        }
+        
+        this._chartDataMap = newMap;
+        this.updateChartView()
+    }
+
+    public updateMapData(){
+        
+    }
+
+    private updateChartView(){
+        if(this._currentChartType === ChartTypes.DONUT){
+            this._apexChartsInstance?.updateOptions({
+                series: this.getDonutSeriesList(),
+                labels: this.getLabelsList()
+            })
+        } else {            
+            this._apexChartsInstance?.updateOptions({
+                series: this.getSeriesList()
+            })
+        }
+    }
+
     public convertToBarChart(){
-        this._globalChartData.chart.type = this.getChartTypeLowerCase(ChartTypes.BAR)
-        const defaultChartData = this.getDefaultChartData()
+        const defaultChartData = this.getDefaultChartData(this.getChartTypeLowerCase(ChartTypes.BAR))
 
         this._apexChartsInstance?.destroy()
         this.initChart(defaultChartData as ApexOptions)
         this.renderChart()
+
+        this._currentChartType = ChartTypes.BAR
     }
 
     public convertToLineChart(){
-        this._globalChartData.chart.type = this.getChartTypeLowerCase(ChartTypes.LINE)
-        const defaultChartData = this.getDefaultChartData()
+        const defaultChartData = this.getDefaultChartData(this.getChartTypeLowerCase(ChartTypes.LINE))
 
         this._apexChartsInstance?.destroy()
         this.initChart(defaultChartData as ApexOptions)
         this.renderChart()
+
+        this._currentChartType = ChartTypes.LINE
     }
 
     public convertToDonutChart(){
-        this._globalChartData.chart.type = this.getChartTypeLowerCase(ChartTypes.DONUT)
         const donutChartData = this.getDonutChartData()
 
         this._apexChartsInstance?.destroy()
         this.initChart(donutChartData as ApexOptions)
         this.renderChart()
+
+        this._currentChartType = ChartTypes.DONUT
     }
 
     public renderChart(){
         this._apexChartsInstance?.render()
     }
 
-    private getDefaultChartData(): IBarOrLineChartData {
+    private getDefaultChartData(chartType: 'bar' | 'line' | 'donut'): IBarOrLineChartData {
         return {
-            chart: this._globalChartData.chart,
-            series: this._globalChartData.series.map((serie) => ({ name: serie.name, data: serie.data })),
-            xaxis: this._globalChartData.xaxis
+            chart: this.getChartObject(chartType),
+            series: this.getSeriesList(),
+            xaxis: this. getXaxisObject()
         } as IBarOrLineChartData
     }
 
     private getDonutChartData(): IDonutChartData {
         return {
-            chart: this._globalChartData.chart,
-            series: this._globalChartData.series.map((serie) => serie.data[0]),
-            labels: this._globalChartData.labels,
-            xaxis: this._globalChartData.xaxis
+            chart: this.getChartObject(this.getChartTypeLowerCase(ChartTypes.DONUT)),
+            series: this.getDonutSeriesList(),
+            labels: this.getLabelsList()
         } as IDonutChartData
     }
 
-    private getChartTypeLowerCase(chartType: ChartTypes): string {
+    private getChartObject(chartType: 'bar' | 'line' | 'donut'){
+        return { type: chartType, toolbar: { show: false } }
+    }
+
+    private getDonutSeriesList(){
+        return [...this._chartDataMap].map(([name, data]) => data[0])
+    }
+
+    private getSeriesList(){
+        return [...this._chartDataMap].map(([name, data]) => ({ name: name, data: data }))
+    }
+
+    private getLabelsList(){
+        return [...this._chartDataMap].map(([name]) => name)
+    }
+
+    private getXaxisObject(){
+        const seriesListFirstChild = this.getSeriesList()[0]
+        const categories = seriesListFirstChild.data.map((value, index) => `#${index + 1}`)
+
+        return { categories: categories }
+    }
+
+    private getChartTypeLowerCase(chartType: ChartTypes): 'bar' | 'donut' | 'line' {
         switch(chartType){
             case ChartTypes.BAR:
                 return 'bar'

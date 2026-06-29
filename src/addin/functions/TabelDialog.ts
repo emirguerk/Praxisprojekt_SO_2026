@@ -1,14 +1,37 @@
+import { ChartInstance } from "../classes/Chart"
+
 export function tableDialog(){
     const tableElement = document.querySelector('table') as HTMLElement
-    const tableBody = tableElement.querySelector('tbody') as HTMLElement
     const tableHead = tableElement.querySelector('thead tr') as HTMLElement
+    const tableBody = tableElement.querySelector('tbody') as HTMLElement
 
     const addTableRow = tableElement.querySelector('#add-table-row-button') as HTMLElement
     const addTableCol = tableElement.querySelector('#add-table-col-button') as HTMLElement
 
+    const theadInput = tableHead.querySelectorAll('input') as NodeListOf<Element>
+
+    changeCaptionEvent(theadInput)
     addTableRowEvent(tableElement, tableBody, addTableRow)
     addTabelColEvent(tableElement, tableHead, addTableCol)
+}
 
+function changeCaptionEvent(theadInput: NodeListOf<Element>){
+    theadInput.forEach((input) => {
+        const inputElemnt = input as HTMLInputElement;
+
+        let currentValue: string;
+
+        inputElemnt.addEventListener('focus', () => { currentValue = inputElemnt.value })
+
+        inputElemnt.addEventListener('change', (event) => {
+            const target = event.target as HTMLInputElement;
+
+            if(currentValue === target.value)
+                return
+
+            ChartInstance.updateMapKeys(currentValue, target.value)
+        })
+    })
 }
 
 function addTabelColEvent(tableElement: HTMLElement, tableHead: HTMLElement, addTableCol: HTMLElement){

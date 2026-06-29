@@ -4,8 +4,8 @@ class TableComponent extends HTMLElement {
             <table>
                 <thead>
                     <th scope="col"></th>
-                    <th scope="col"><input type="text" value="Beipsiel 1"></th>
-                    <th scope="col"><input type="text" value="Beipsiel 2"></th>
+                    <th scope="col"><input type="text" value="Beispiel 1"></th>
+                    <th scope="col"><input type="text" value="Beispiel 2"></th>
                     <th scope="col"><button class="button secondary-button" id="add-table-col-button">Add</button></th>
                 </thead>
                 <tbody>
