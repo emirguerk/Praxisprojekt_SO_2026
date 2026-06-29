@@ -6,7 +6,7 @@ class TableComponent extends HTMLElement {
                     <th scope="col"></th>
                     <th scope="col"><input type="text" value="Beipsiel 1"></th>
                     <th scope="col"><input type="text" value="Beipsiel 2"></th>
-                    <th id="add-table-col" scope="col"><button class="button secondary-button">Add</button></th>
+                    <th scope="col"><button class="button secondary-button" id="add-table-col-button">Add</button></th>
                 </thead>
                 <tbody>
                     <tr>
@@ -28,7 +28,7 @@ class TableComponent extends HTMLElement {
                         <td></td>
                     </tr>
                     <tr>
-                        <th colspan="row"><button class="button secondary-button">Add</button></th>
+                        <th colspan="row"><button class="button secondary-button" id="add-table-row-button">Add</button></th>
                         <td></td>
                         <td></td>
                         <td></td>
