@@ -9,8 +9,10 @@ export function tableDialog(){
     const addTableCol = tableElement.querySelector('#add-table-col-button') as HTMLElement
 
     const theadInput = tableHead.querySelectorAll('input') as NodeListOf<Element>
+    const tBodyTr = tableBody.querySelectorAll('tr') as NodeListOf<Element>
 
     changeCaptionEvent(theadInput)
+    changeContentEvent(theadInput, tBodyTr)
     addTableRowEvent(tableElement, tableBody, addTableRow)
     addTabelColEvent(tableElement, tableHead, addTableCol)
 }
@@ -30,6 +32,58 @@ function changeCaptionEvent(theadInput: NodeListOf<Element>){
                 return
 
             ChartInstance.updateMapKeys(currentValue, target.value)
+        })
+    })
+}
+
+function changeContentEvent(theadInput: NodeListOf<Element>, tBodyTr: NodeListOf<Element>){
+    theadInput.forEach((theadInput, columnIndex) => {
+        const inputElemnt = theadInput as HTMLInputElement;
+        const key = inputElemnt.value
+        const value: number[] = []
+
+        // collect current body data
+        tBodyTr.forEach((tBodyTr) => {
+            const allInputs = tBodyTr.querySelectorAll('input') as NodeListOf<Element>
+
+            // break last row
+            if(allInputs.length === 0){
+                return
+            }
+
+            const currentInput = allInputs[columnIndex] as HTMLInputElement
+    
+            value.push(parseInt(currentInput.value))
+        })
+
+        // execute change event
+        tBodyTr.forEach((tBodyTr, rowIndex) => {
+            const allInputs = tBodyTr.querySelectorAll('input') as NodeListOf<Element>
+
+            // break last row
+            if(allInputs.length === 0){
+                return
+            }
+
+            const currentInput = allInputs[columnIndex] as HTMLInputElement
+            
+            let currentValue: string;
+
+            currentInput.addEventListener('focus', () => { currentValue = currentInput.value })
+
+            currentInput.addEventListener('change', (event) => {
+                const target = event.target as HTMLInputElement;
+
+                if(currentValue === target.value)
+                    return
+
+                value[rowIndex] = parseInt(target.value)
+
+                console.log(value)
+
+                ChartInstance.updateMapData(key, value)
+            })
+
         })
     })
 }

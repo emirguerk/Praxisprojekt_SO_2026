@@ -34,8 +34,9 @@ class Chart{
         this.updateChartView()
     }
 
-    public updateMapData(){
-        
+    public updateMapData(key: string, newData: number[]){
+        this._chartDataMap.set(key, newData)
+        this.updateChartView()
     }
 
     private updateChartView(){
