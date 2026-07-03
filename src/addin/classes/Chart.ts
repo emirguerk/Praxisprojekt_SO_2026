@@ -107,7 +107,7 @@ class Chart{
         return this._currentChartType
     }
 
-    private getChartIsDestroyed(){
+    public getChartIsDestroyed(){
         return !this._isActive
     }
 

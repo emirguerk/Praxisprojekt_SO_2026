@@ -18,9 +18,13 @@ function updateView(){
         if(getTableIsValid){
             const currentChartType = ChartInstance.getCurrentChartType()
             const chartData = ChartInstance.getChartData()
+            const chartIsDestroyed = ChartInstance.getChartIsDestroyed()
 
             const chart = document.querySelector('#chart') as HTMLElement
-            chart.innerHTML = ``
+            if(chartIsDestroyed)
+                chart.innerHTML = ``
+            else
+                ChartInstance.destroyChart()
 
             ChartInstance.initChart(chartData as ApexOptions, currentChartType)
         } else {
