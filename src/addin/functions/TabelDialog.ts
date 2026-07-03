@@ -1,24 +1,56 @@
 import { ChartInstance } from "../classes/Chart"
 
+const tableElement = document.querySelector('table') as HTMLElement
+const tableHead = tableElement.querySelector('thead tr') as HTMLElement
+const tableBody = tableElement.querySelector('tbody') as HTMLElement
+
+const theadInput = tableHead.querySelectorAll('input') as NodeListOf<Element>
+const tBodyTr = tableBody.querySelectorAll('tr') as NodeListOf<Element>
+
+const addTableRow = tableElement.querySelector('#add-table-row-button') as HTMLElement
+const addTableCol = tableElement.querySelector('#add-table-col-button') as HTMLElement
+
 export function tableDialog(){
+    addTabelColEvent()
+    addTableRowEvent()
+    changeCaptionEvent()
+    changeContentEvent()
+}
+
+export function tableIsValid(): Boolean{
+    const tableInput = document.querySelectorAll('table tbody input') as NodeListOf<Element>
+    return [...tableInput].every(input => (input as HTMLInputElement).checkValidity());
+}
+
+function refreshTableEvent(){
     const tableElement = document.querySelector('table') as HTMLElement
     const tableHead = tableElement.querySelector('thead tr') as HTMLElement
     const tableBody = tableElement.querySelector('tbody') as HTMLElement
-
-    const addTableRow = tableElement.querySelector('#add-table-row-button') as HTMLElement
-    const addTableCol = tableElement.querySelector('#add-table-col-button') as HTMLElement
-
     const theadInput = tableHead.querySelectorAll('input') as NodeListOf<Element>
     const tBodyTr = tableBody.querySelectorAll('tr') as NodeListOf<Element>
 
     changeCaptionEvent(theadInput)
     changeContentEvent(theadInput, tBodyTr)
-    addTableRowEvent(tableElement, tableBody, addTableRow)
-    addTabelColEvent(tableElement, tableHead, addTableCol)
 }
 
-function changeCaptionEvent(theadInput: NodeListOf<Element>){
-    theadInput.forEach((input) => {
+function updateChartData(){
+    const tableElement = document.querySelector('table') as HTMLElement
+    const tableHead = tableElement.querySelector('thead tr') as HTMLElement
+    const theadInput = tableHead.querySelectorAll('input') as NodeListOf<Element>
+    const tBodyTr = tableBody.querySelectorAll('tr') as NodeListOf<Element>
+
+    theadInput.forEach((theadInput, columnIndex) => {
+        const inputElemnt = theadInput as HTMLInputElement;
+        const key = inputElemnt.value
+        const value: number[] = []
+
+        collectCurrentTableData(tBodyTr, columnIndex, value)
+        ChartInstance.updateMapData(key, value)
+    })
+}
+
+function changeCaptionEvent(theadInputparameter: NodeListOf<Element> = theadInput){
+    theadInputparameter.forEach((input) => {
         const inputElemnt = input as HTMLInputElement;
 
         let currentValue: string;
@@ -31,77 +63,97 @@ function changeCaptionEvent(theadInput: NodeListOf<Element>){
             if(currentValue === target.value)
                 return
 
+            if(target.value === ""){
+                target.value = "Undefiend"
+            }
+
             ChartInstance.updateMapKeys(currentValue, target.value)
         })
     })
 }
 
-function changeContentEvent(theadInput: NodeListOf<Element>, tBodyTr: NodeListOf<Element>){
-    theadInput.forEach((theadInput, columnIndex) => {
+function changeContentEvent(theadInputparameter: NodeListOf<Element> = theadInput, tBodyTrParameter: NodeListOf<Element> = tBodyTr){
+    theadInputparameter.forEach((theadInput, columnIndex) => {
         const inputElemnt = theadInput as HTMLInputElement;
         const key = inputElemnt.value
         const value: number[] = []
 
-        // collect current body data
-        tBodyTr.forEach((tBodyTr) => {
-            const allInputs = tBodyTr.querySelectorAll('input') as NodeListOf<Element>
+        collectCurrentTableData(tBodyTrParameter, columnIndex, value)
+        executeChangeEvent(tBodyTrParameter, columnIndex, key, value)
+    })
+}
 
-            // break last row
-            if(allInputs.length === 0){
-                return
-            }
+function collectCurrentTableData(tBodyTrParameter: NodeListOf<Element> = tBodyTr, columnIndex: number, value: number[]){
+    tBodyTrParameter.forEach((tBodyTr) => {
+        const allInputs = tBodyTr.querySelectorAll('input') as NodeListOf<Element>
 
-            const currentInput = allInputs[columnIndex] as HTMLInputElement
-    
-            value.push(parseInt(currentInput.value))
+        // break last row
+        if(allInputs.length === 0){
+            return
+        }
+
+        const currentInput = allInputs[columnIndex] as HTMLInputElement
+        const valueIsEmpty = currentInput.value === ""
+
+        value.push(!valueIsEmpty ? parseInt(currentInput.value) : 0)
+    })
+}
+
+function executeChangeEvent(tBodyTrParameter: NodeListOf<Element> = tBodyTr, columnIndex: number, key: string, value: number[]){
+    tBodyTrParameter.forEach((tBodyTr, rowIndex) => {
+        const allInputs = tBodyTr.querySelectorAll('input') as NodeListOf<Element>
+
+        // break last row
+        if(allInputs.length === 0){
+            return
+        }
+
+        const currentInput = allInputs[columnIndex] as HTMLInputElement
+        
+        let currentValue: string;
+
+        currentInput.addEventListener("invalid", () => {
+            const errorDialog = document.querySelector('.message-dialog-container') as HTMLElement
+            const chart = document.querySelector('#chart') as HTMLElement
+
+            ChartInstance.destroyChart()
+            chart.innerHTML = `
+                    <span style="text-align: center">
+                        Please fix table errors first.<br>Then click on <strong>Update View</strong>.
+                    <span>
+                `
+
+            errorDialog.classList.add('is-visible')
         })
 
-        // execute change event
-        tBodyTr.forEach((tBodyTr, rowIndex) => {
-            const allInputs = tBodyTr.querySelectorAll('input') as NodeListOf<Element>
+        currentInput.addEventListener('focus', () => { currentValue = currentInput.value })
 
-            // break last row
-            if(allInputs.length === 0){
+        currentInput.addEventListener('change', (event) => {
+            const target = event.target as HTMLInputElement;
+
+            if(currentValue === target.value || !currentInput.checkValidity())
                 return
-            }
 
-            const currentInput = allInputs[columnIndex] as HTMLInputElement
-            
-            let currentValue: string;
-
-            currentInput.addEventListener('focus', () => { currentValue = currentInput.value })
-
-            currentInput.addEventListener('change', (event) => {
-                const target = event.target as HTMLInputElement;
-
-                if(currentValue === target.value)
-                    return
-
-                value[rowIndex] = parseInt(target.value)
-
-                console.log(value)
-
-                ChartInstance.updateMapData(key, value)
-            })
-
+            value[rowIndex] = parseInt(target.value)
+            ChartInstance.updateMapData(key, value)
         })
     })
 }
 
-function addTabelColEvent(tableElement: HTMLElement, tableHead: HTMLElement, addTableCol: HTMLElement){
-        addTableCol.addEventListener('click', () => {        
-        const allTabelCols = tableElement.querySelectorAll('thead th') as NodeListOf<Element>
-        const allTableRows = tableElement.querySelectorAll('tbody tr') as NodeListOf<Element>
+function addTabelColEvent(tableElementParameter: HTMLElement = tableElement, tableHeadParameter: HTMLElement = tableHead, addTableColParameter: HTMLElement = addTableCol){
+    addTableCol.addEventListener('click', () => {        
+        const allTabelCols = tableElementParameter.querySelectorAll('thead th') as NodeListOf<Element>
+        const allTableRows = tableElementParameter.querySelectorAll('tbody tr') as NodeListOf<Element>
 
         const addTargetCol = allTabelCols[allTabelCols.length -1]
 
         const newCol = document.createElement('th')
         newCol.setAttribute('scope', 'col')
         newCol.innerHTML = `
-            <input type="text" value="">
+            <input type="text" value="Beispiel ${allTabelCols.length -1}">
         `
 
-        tableHead.insertBefore(newCol, addTargetCol)
+        tableHeadParameter.insertBefore(newCol, addTargetCol)
 
         allTableRows.forEach((row, index) => {
             const allRowData = row.querySelectorAll('td') as NodeListOf<Element>
@@ -111,19 +163,22 @@ function addTabelColEvent(tableElement: HTMLElement, tableHead: HTMLElement, add
 
             if (index !== allTableRows.length -1) {
                 newtd.innerHTML = `
-                    <input type="text" value="">
+                    <input type="text" pattern="^[0-9]+$" value="0" required>
                 `
             }
 
             row.insertBefore(newtd, addTargetTdElement)
         })
+        
+        ChartInstance.updateMapData(`Beispiel ${allTabelCols.length -1}`, new Array(allTableRows.length -1).fill(0))
+        refreshTableEvent()
     })
 }
 
-function addTableRowEvent(tableElement: HTMLElement, tableBody: HTMLElement, addTableRow: HTMLElement){
-    addTableRow.addEventListener('click', () => {
-        const allTabelCols = tableElement.querySelectorAll('thead th') as NodeListOf<Element>
-        const allTableRows = tableElement.querySelectorAll('tbody tr') as NodeListOf<Element>
+function addTableRowEvent(tableElementParameter: HTMLElement = tableElement, tableBodyParameter: HTMLElement = tableBody, addTableRowParameter: HTMLElement = addTableRow){
+    addTableRowParameter.addEventListener('click', () => {
+        const allTabelCols = tableElementParameter.querySelectorAll('thead th') as NodeListOf<Element>
+        const allTableRows = tableElementParameter.querySelectorAll('tbody tr') as NodeListOf<Element>
         const addTargetRow = allTableRows[allTableRows.length -1]
 
         const newRow = document.createElement("tr");
@@ -139,13 +194,15 @@ function addTableRowEvent(tableElement: HTMLElement, tableBody: HTMLElement, add
             
             if (index !== allTabelCols.length -1){
                 newTd.innerHTML = `
-                    <input type="text" value="">
+                    <input type="text" pattern="^[0-9]+$" value="0" required>
                 `
             }
 
             newRow.appendChild(newTd)
         })
 
-        tableBody.insertBefore(newRow, addTargetRow)
+        tableBodyParameter.insertBefore(newRow, addTargetRow)
+        updateChartData()
+        refreshTableEvent()
     })
 }

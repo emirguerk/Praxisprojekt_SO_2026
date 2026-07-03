@@ -3,6 +3,7 @@ import { ChartTypes } from "../enums/ChartType"
 import { IBarOrLineChartData, IDonutChartData } from "../types/IChartData"
 
 class Chart{
+    private _isActive: boolean = false
     private _currentChartType : ChartTypes
     private _apexChartsInstance ?: ApexCharts
     private _chartDataMap : Map<string, number[]> = new Map()
@@ -13,11 +14,15 @@ class Chart{
         this._currentChartType = ChartTypes.BAR
     }
 
-    public initChart(chartOption ?: ApexOptions){
+    public initChart(chartOption ?: ApexOptions, chartType?: ChartTypes){
         this._apexChartsInstance = new ApexCharts(
             document.querySelector('#chart') as HTMLElement, 
             chartOption ?? this.getDefaultChartData(this.getChartTypeLowerCase(ChartTypes.BAR)) as ApexOptions
         )
+
+        this.renderChart()
+        this._isActive = true
+        this._currentChartType = chartType ?? ChartTypes.BAR
     }
 
     public updateMapKeys(oldValue: string, newValue: string){
@@ -31,12 +36,13 @@ class Chart{
         }
         
         this._chartDataMap = newMap;
-        this.updateChartView()
+
+        if(!this.getChartIsDestroyed()) this.updateChartView()
     }
 
     public updateMapData(key: string, newData: number[]){
         this._chartDataMap.set(key, newData)
-        this.updateChartView()
+        if(!this.getChartIsDestroyed()) this.updateChartView()
     }
 
     private updateChartView(){
@@ -56,34 +62,53 @@ class Chart{
         const defaultChartData = this.getDefaultChartData(this.getChartTypeLowerCase(ChartTypes.BAR))
 
         this._apexChartsInstance?.destroy()
-        this.initChart(defaultChartData as ApexOptions)
-        this.renderChart()
-
-        this._currentChartType = ChartTypes.BAR
+        this.initChart(defaultChartData as ApexOptions, ChartTypes.BAR)
     }
 
     public convertToLineChart(){
         const defaultChartData = this.getDefaultChartData(this.getChartTypeLowerCase(ChartTypes.LINE))
 
         this._apexChartsInstance?.destroy()
-        this.initChart(defaultChartData as ApexOptions)
-        this.renderChart()
-
-        this._currentChartType = ChartTypes.LINE
+        this.initChart(defaultChartData as ApexOptions, ChartTypes.LINE)
     }
 
     public convertToDonutChart(){
         const donutChartData = this.getDonutChartData()
 
         this._apexChartsInstance?.destroy()
-        this.initChart(donutChartData as ApexOptions)
-        this.renderChart()
-
-        this._currentChartType = ChartTypes.DONUT
+        this.initChart(donutChartData as ApexOptions, ChartTypes.DONUT)
     }
 
     public renderChart(){
         this._apexChartsInstance?.render()
+    }
+
+    public destroyChart(){
+        this._apexChartsInstance?.destroy()
+        this._isActive = false
+    }
+
+    public getChartData(){
+        const currentChartType = this.getCurrentChartType()
+        
+        switch(currentChartType){
+            case ChartTypes.BAR:
+                return this.getDefaultChartData(ChartInstance.getChartTypeLowerCase(ChartTypes.BAR))
+            case ChartTypes.DONUT:
+                return this.getDonutChartData()
+            case ChartTypes.LINE:
+                return this.getDefaultChartData(ChartInstance.getChartTypeLowerCase(ChartTypes.BAR))
+            default:
+                throw Error(`${currentChartType} is not found.`)
+        }
+    }
+
+    public getCurrentChartType(): ChartTypes{
+        return this._currentChartType
+    }
+
+    private getChartIsDestroyed(){
+        return !this._isActive
     }
 
     private getDefaultChartData(chartType: 'bar' | 'line' | 'donut'): IBarOrLineChartData {

@@ -1,5 +1,6 @@
 import { ChartInstance } from "../classes/Chart"
 import { ChartTypes } from "../enums/ChartType"
+import { tableIsValid } from "./TabelDialog"
 
 export function dropdownDialog(){
     const dropdownContainer = document.querySelector('.dropdown-container') as HTMLElement
@@ -47,7 +48,15 @@ function convertChart(chartType: ChartTypes){
 }
 
 function toggleDropdown(button : HTMLElement, dropdownContainer: HTMLElement){
+    const errorDialog = document.querySelector('.message-dialog-container') as HTMLElement
+
     button.addEventListener('click', () => {
-        dropdownContainer.classList.toggle('is-visible')
+        const getTableIsValid = tableIsValid()
+        
+        if(getTableIsValid){
+            dropdownContainer.classList.toggle('is-visible')
+        } else {
+            errorDialog.classList.add('is-visible')
+        }
     })
 }

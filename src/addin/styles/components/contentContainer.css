@@ -4,6 +4,7 @@
     display: flex;
     justify-content: space-between;
     gap: var(--space-md);
+    position: relative;
 }
 
 @media (max-width: 800px) {

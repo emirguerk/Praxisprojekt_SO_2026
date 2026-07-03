@@ -18,3 +18,7 @@ body{
     padding: var(--space-ssm) var(--space-xxl);
     background-color: var(--color-white);
 }
+
+strong{
+    font-weight: var(--font-weight-bold);
+}

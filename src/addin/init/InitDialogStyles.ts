@@ -11,6 +11,8 @@ import "../styles/components/customChart.css"
 import "../styles/components/contentContainer.css"
 import "../styles/components/table.css"
 import "../styles/components/footerNavigationCommandBar.css"
+import "../styles/components/messageDialog.css"
+import "../styles/components/isVisible.css"
 
 export function initDialogStyles(){
     // setTimeout(() => {

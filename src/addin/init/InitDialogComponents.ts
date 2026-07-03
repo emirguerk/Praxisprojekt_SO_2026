@@ -3,11 +3,12 @@ import "../components/HeaderCommandBarComponent"
 import "../components/TableComponent"
 import "../components/FooterNavigationCommandBarComponent"
 import "../components/ChartComponent"
+import "../components/MessageDialogComponent"
 
-import { dropdownDialog } from "../functions/DropdownDialog"
 import { tableDialog } from "../functions/TabelDialog"
+import { headerCommandBarDialog } from "../functions/HeaderCommandBarDialog"
 
 export function initDialogComponents(){
-    dropdownDialog()
+    headerCommandBarDialog()
     tableDialog()
 }

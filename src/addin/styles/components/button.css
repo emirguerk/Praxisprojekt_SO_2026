@@ -24,7 +24,7 @@
 .secondary-button{
     color: var(--color-black);
     font-weight: var(--font-weight-bold);
-    padding: var(--space-xs) var(--space-md);
+    padding: var(--space-sm) var(--space-md);
 
     &:hover{
         color: var(--color-white);

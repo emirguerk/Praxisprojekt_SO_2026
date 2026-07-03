@@ -11,20 +11,20 @@ class TableComponent extends HTMLElement {
                 <tbody>
                     <tr>
                         <th colspan="row">#1</th>
-                        <td><input type="text" value="1"></td>
-                        <td><input type="text" value="1"></td>
+                        <td><input type="text" pattern="^[0-9]+$" value="1" required></td>
+                        <td><input type="text" pattern="^[0-9]+$" value="1" required></td>
                         <td></td>
                     </tr>
                     <tr>
                         <th colspan="row">#2</th>
-                        <td><input type="text" value="2"></td>
-                        <td><input type="text" value="2"></td>
+                        <td><input type="text" pattern="^[0-9]+$" value="2" required></td>
+                        <td><input type="text" pattern="^[0-9]+$" value="2" required></td>
                         <td></td>
                     </tr>
                     <tr>
                         <th colspan="row">#3</th>
-                        <td><input type="text" value="3"></td>
-                        <td><input type="text" value="3"></td>
+                        <td><input type="text" pattern="^[0-9]+$" value="3" required></td>
+                        <td><input type="text" pattern="^[0-9]+$" value="3" required></td>
                         <td></td>
                     </tr>
                     <tr>
