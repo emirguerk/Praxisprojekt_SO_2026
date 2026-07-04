@@ -2,77 +2,77 @@ import { ChartInstance } from "../classes/Chart"
 import { IMessageDialog } from "../types/IMessageDialog"
 
 export function createTableHtml(): string{
-    const table = document.createElement("table");
-    const thead = document.createElement("thead");
-    const tbody = document.createElement("tbody");
+    const table = document.createElement("table")
+    const thead = document.createElement("thead")
+    const tbody = document.createElement("tbody")
 
-    const chartMapKeys = ChartInstance.getChartMapKeys();
+    const chartMapKeys = ChartInstance.getChartMapKeys()
 
-    const headerRow = document.createElement("tr");
+    const headerRow = document.createElement("tr")
 
-    headerRow.appendChild(document.createElement("th"));
+    headerRow.appendChild(document.createElement("th"))
 
     for (const key of chartMapKeys) {
         const th = document.createElement("th");
-        th.innerHTML = `<input type="text" value="${key}">`;
-        headerRow.appendChild(th);
+        th.innerHTML = `<input type="text" value="${key}">`
+        headerRow.appendChild(th)
     }
 
-    const addTh = document.createElement("th");
+    const addTh = document.createElement("th")
     addTh.innerHTML = `
         <button class="button secondary-button" id="add-table-col-button">Add</button>
     `
 
-    headerRow.appendChild(addTh);
-    thead.appendChild(headerRow);
+    headerRow.appendChild(addTh)
+    thead.appendChild(headerRow)
 
-    const chartMapValues = [...ChartInstance.getChartMapValues()];
+    const chartMapValues = [...ChartInstance.getChartMapValues()]
 
-    const rowCount = chartMapValues[0]?.length ?? 0;
+    const rowCount = chartMapValues[0]?.length
 
     for (let i = 0; i < rowCount; i++) {
-        const tr = document.createElement("tr");
+        const tr = document.createElement("tr")
 
-        const th = document.createElement("th");
+        const th = document.createElement("th")
         th.textContent = `#${i + 1}`;
         tr.appendChild(th);
 
         for (const col of chartMapValues) {
-            const td = document.createElement("td");
+            const td = document.createElement("td")
             td.innerHTML = `
                 <input type="text"
                        pattern="^[0-9]+$"
                        value="${col[i] ?? 0}"
                        required>
-            `;
-            tr.appendChild(td);
+            `
+            tr.appendChild(td)
         }
 
-        tr.appendChild(document.createElement("td"));
-        
-        tbody.appendChild(tr);
+        tr.appendChild(document.createElement("td"))
+
+        tbody.appendChild(tr)
     }
 
-    const addRowTr = document.createElement("tr");
-    const addRowTh = document.createElement("th");
+    const addRowTr = document.createElement("tr")
+    const addRowTh = document.createElement("th")
     addRowTh.innerHTML = `
         <button class="button secondary-button" id="add-table-row-button">
             Add
         </button>
-    `;
+    `
 
-    addRowTr.appendChild(addRowTh);
+    addRowTr.appendChild(addRowTh)
 
     for (let i = 0; i < chartMapValues.length; i++) {
-        addRowTr.appendChild(document.createElement("td"));
+        addRowTr.appendChild(document.createElement("td"))
     }
 
-    tbody.appendChild(addRowTr);
+    tbody.appendChild(addRowTr)
 
-    table.appendChild(thead);
-    table.appendChild(tbody);
+    table.appendChild(thead)
+    table.appendChild(tbody)
 
-    return table.outerHTML;
+    return table.outerHTML
 }
 
 export function tableDialog(){
