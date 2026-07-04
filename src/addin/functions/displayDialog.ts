@@ -1,6 +1,6 @@
 export function dispalyDialog() {
     Office.context.ui.displayDialogAsync('https://localhost:3000/dialog.html', 
-        { height: 80, width: 80, displayInIframe: true },
+        { height: 75, width: 80, displayInIframe: true },
             (asyncResult) => {
                 const dialog = asyncResult.value
 

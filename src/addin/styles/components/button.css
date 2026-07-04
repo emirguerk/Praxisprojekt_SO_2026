@@ -1,10 +1,8 @@
 /* primary button */
-.primary-button{
+.button{
     border: none;
     border-radius: var(--radius-xxs);
     background-color: var(--color-primary);
-    color: var(--color-white);
-    padding: var(--space-sm);
     transition: background-color var(--duration-s);
 
     &:hover{
@@ -15,5 +13,29 @@
     &:active{
         background-color: var(--color-active-darker);
         cursor: pointer;
+    }
+
+    &.disabled{
+        background-color: var(--color-6CA2BF-30);
+        cursor: default;
+    }
+}
+
+.primary-button{
+    color: var(--color-white);
+    padding: var(--space-sm);
+}
+
+.secondary-button{
+    color: var(--color-black);
+    font-weight: var(--font-weight-bold);
+    padding: var(--space-sm) var(--space-md);
+
+    &:hover{
+        color: var(--color-white);
+    }
+
+    &:active{
+        color: var(--color-white);
     }
 }

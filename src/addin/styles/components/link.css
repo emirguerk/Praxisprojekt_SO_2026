@@ -1,0 +1,14 @@
+.link{
+    font-weight: var(--font-weight-bold);
+    color: var(--color-black);
+    text-decoration: none;
+    transition: color var(--duration-s);
+
+    &:hover{
+        color: var(--color-active);
+    }
+
+    &:active{
+        color: var(--color-active-darker);
+    }
+}

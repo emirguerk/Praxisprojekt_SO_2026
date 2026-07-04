@@ -5,9 +5,9 @@ export function initTaskPane(){
             <main>
 
                 <ul>
-                    <li><button id="new-chart-dialog-button" class="primary-button" type="button">Create new chart</button></li>
-                    <li><button id="update-chart-dialog-button" class="primary-button">Update existing chart</button></li>
-                    <li><button id="sync-document-button" class="primary-button">Sync document</button></li>
+                    <li><button id="new-chart-dialog-button" class="button primary-button" type="button">Create new chart</button></li>
+                    <li><button id="update-chart-dialog-button" class="button primary-button">Update existing chart</button></li>
+                    <li><button id="sync-document-button" class="button primary-button">Sync document</button></li>
                 </ul>
 
             </main>

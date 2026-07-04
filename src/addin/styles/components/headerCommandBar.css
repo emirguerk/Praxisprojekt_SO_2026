@@ -1,0 +1,21 @@
+header-action-bar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 var(--space-sm);
+    margin-top: var(--space-ssm);
+
+    nav{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    &>ul{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: var(--space-md);
+    }
+}
