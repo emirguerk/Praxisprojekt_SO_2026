@@ -2,6 +2,7 @@ import { ApexOptions } from "apexcharts";
 import { ChartInstance } from "../classes/Chart";
 import { dropdownDialog } from "./DropdownDialog";
 import { tableIsValid } from "./TabelDialog";
+import { IMessageDialog } from "../types/IMessageDialog";
 
 export function headerCommandBarDialog(){
     dropdownDialog()
@@ -9,7 +10,7 @@ export function headerCommandBarDialog(){
 }
 
 function updateView(){
-    const errorDialog = document.querySelector('.message-dialog-container') as HTMLElement
+    const errorDialog = document.querySelector('message-dialog') as IMessageDialog
     const updateViewButton = document.querySelector('#update-view-button') as HTMLElement
 
     updateViewButton.addEventListener('click', () => {

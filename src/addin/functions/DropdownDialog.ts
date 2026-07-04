@@ -51,9 +51,10 @@ function toggleDropdown(button : HTMLElement, dropdownContainer: HTMLElement){
     const errorDialog = document.querySelector('.message-dialog-container') as HTMLElement
 
     button.addEventListener('click', () => {
+        const chartIsDestroyed = ChartInstance.getChartIsDestroyed()
         const getTableIsValid = tableIsValid()
-        
-        if(getTableIsValid){
+                
+        if(getTableIsValid && !chartIsDestroyed){
             dropdownContainer.classList.toggle('is-visible')
         } else {
             errorDialog.classList.add('is-visible')

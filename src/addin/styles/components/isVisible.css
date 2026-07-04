@@ -1,4 +1,5 @@
 .is-visible{
     overflow: visible;
     visibility: visible;
+    display: flex;
 }

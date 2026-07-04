@@ -1,4 +1,5 @@
 import { ChartInstance } from "../classes/Chart"
+import { IMessageDialog } from "../types/IMessageDialog"
 
 const tableElement = document.querySelector('table') as HTMLElement
 const tableHead = tableElement.querySelector('thead tr') as HTMLElement
@@ -113,7 +114,7 @@ function executeChangeEvent(tBodyTrParameter: NodeListOf<Element> = tBodyTr, col
         let currentValue: string;
 
         currentInput.addEventListener("invalid", () => {
-            const errorDialog = document.querySelector('.message-dialog-container') as HTMLElement
+            const errorDialog = document.querySelector('message-dialog') as IMessageDialog
             const chart = document.querySelector('#chart') as HTMLElement
 
             ChartInstance.destroyChart()

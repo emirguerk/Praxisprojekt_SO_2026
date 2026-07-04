@@ -1,6 +1,7 @@
+import { IMessageDialog } from "../types/IMessageDialog"
 
 export function messageDialog(){
-    const messageDialogContainer = document.querySelector('.message-dialog-container') as HTMLElement
+    const messageDialogContainer = document.querySelector('message-dialog') as IMessageDialog
     const buttonContainer = messageDialogContainer.querySelector('#button-container') as HTMLElement
 
     closeErrorDialog(messageDialogContainer, buttonContainer)
