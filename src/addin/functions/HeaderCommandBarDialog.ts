@@ -10,8 +10,7 @@ export function headerCommandBarDialog(){
 }
 
 function updateView(){
-    const errorDialog = document.querySelector('message-dialog') as IMessageDialog
-    const updateViewButton = document.querySelector('#update-view-button') as HTMLElement
+    const { errorDialog, updateViewButton } = getHeaderCommandBarElements()
 
     updateViewButton.addEventListener('click', () => {
         const getTableIsValid = tableIsValid()
@@ -32,4 +31,14 @@ function updateView(){
             errorDialog.classList.add('is-visible')
         }
     })
+}
+
+
+function getHeaderCommandBarElements(){
+    const errorDialog = document.querySelector('message-dialog') as IMessageDialog
+    const updateViewButton = document.querySelector('#update-view-button') as HTMLElement
+
+    return{
+        errorDialog, updateViewButton
+    }
 }

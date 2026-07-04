@@ -111,6 +111,14 @@ class Chart{
         return !this._isActive
     }
 
+    public getChartMapKeys(){
+        return this._chartDataMap.keys()
+    }
+
+    public getChartMapValues(){
+        return this._chartDataMap.values()
+    }
+
     private getDefaultChartData(chartType: 'bar' | 'line' | 'donut'): IBarOrLineChartData {
         return {
             chart: this.getChartObject(chartType),

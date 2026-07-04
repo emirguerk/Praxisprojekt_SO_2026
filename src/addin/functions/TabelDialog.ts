@@ -1,18 +1,82 @@
 import { ChartInstance } from "../classes/Chart"
 import { IMessageDialog } from "../types/IMessageDialog"
 
-const tableElement = document.querySelector('table') as HTMLElement
-const tableHead = tableElement.querySelector('thead tr') as HTMLElement
-const tableBody = tableElement.querySelector('tbody') as HTMLElement
+export function createTableHtml(): string{
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const tbody = document.createElement("tbody");
 
-const theadInput = tableHead.querySelectorAll('input') as NodeListOf<Element>
-const tBodyTr = tableBody.querySelectorAll('tr') as NodeListOf<Element>
+    const chartMapKeys = ChartInstance.getChartMapKeys();
 
-const addTableRow = tableElement.querySelector('#add-table-row-button') as HTMLElement
-const addTableCol = tableElement.querySelector('#add-table-col-button') as HTMLElement
+    const headerRow = document.createElement("tr");
+
+    headerRow.appendChild(document.createElement("th"));
+
+    for (const key of chartMapKeys) {
+        const th = document.createElement("th");
+        th.innerHTML = `<input type="text" value="${key}">`;
+        headerRow.appendChild(th);
+    }
+
+    const addTh = document.createElement("th");
+    addTh.innerHTML = `
+        <button class="button secondary-button" id="add-table-col-button">Add</button>
+    `
+
+    headerRow.appendChild(addTh);
+    thead.appendChild(headerRow);
+
+    const chartMapValues = [...ChartInstance.getChartMapValues()];
+
+    const rowCount = chartMapValues[0]?.length ?? 0;
+
+    for (let i = 0; i < rowCount; i++) {
+        const tr = document.createElement("tr");
+
+        const th = document.createElement("th");
+        th.textContent = `#${i + 1}`;
+        tr.appendChild(th);
+
+        for (const col of chartMapValues) {
+            const td = document.createElement("td");
+            td.innerHTML = `
+                <input type="text"
+                       pattern="^[0-9]+$"
+                       value="${col[i] ?? 0}"
+                       required>
+            `;
+            tr.appendChild(td);
+        }
+
+        tr.appendChild(document.createElement("td"));
+        
+        tbody.appendChild(tr);
+    }
+
+    const addRowTr = document.createElement("tr");
+    const addRowTh = document.createElement("th");
+    addRowTh.innerHTML = `
+        <button class="button secondary-button" id="add-table-row-button">
+            Add
+        </button>
+    `;
+
+    addRowTr.appendChild(addRowTh);
+
+    for (let i = 0; i < chartMapValues.length; i++) {
+        addRowTr.appendChild(document.createElement("td"));
+    }
+
+    tbody.appendChild(addRowTr);
+
+    table.appendChild(thead);
+    table.appendChild(tbody);
+
+    return table.outerHTML;
+}
 
 export function tableDialog(){
-    addTabelColEvent()
+    addTableColEvent()
     addTableRowEvent()
     changeCaptionEvent()
     changeContentEvent()
@@ -23,35 +87,28 @@ export function tableIsValid(): Boolean{
     return [...tableInput].every(input => (input as HTMLInputElement).checkValidity());
 }
 
-function refreshTableEvent(){
-    const tableElement = document.querySelector('table') as HTMLElement
-    const tableHead = tableElement.querySelector('thead tr') as HTMLElement
-    const tableBody = tableElement.querySelector('tbody') as HTMLElement
-    const theadInput = tableHead.querySelectorAll('input') as NodeListOf<Element>
-    const tBodyTr = tableBody.querySelectorAll('tr') as NodeListOf<Element>
-
-    changeCaptionEvent(theadInput)
-    changeContentEvent(theadInput, tBodyTr)
+function refreshInputEvents(){
+    changeCaptionEvent()
+    changeContentEvent()
 }
 
 function updateChartData(){
-    const tableElement = document.querySelector('table') as HTMLElement
-    const tableHead = tableElement.querySelector('thead tr') as HTMLElement
-    const theadInput = tableHead.querySelectorAll('input') as NodeListOf<Element>
-    const tBodyTr = tableBody.querySelectorAll('tr') as NodeListOf<Element>
+    const { headInputs } = getTableElements()
 
-    theadInput.forEach((theadInput, columnIndex) => {
+    headInputs.forEach((theadInput, columnIndex) => {
         const inputElemnt = theadInput as HTMLInputElement;
         const key = inputElemnt.value
         const value: number[] = []
 
-        collectCurrentTableData(tBodyTr, columnIndex, value)
+        collectCurrentTableData(columnIndex, value)
         ChartInstance.updateMapData(key, value)
     })
 }
 
-function changeCaptionEvent(theadInputparameter: NodeListOf<Element> = theadInput){
-    theadInputparameter.forEach((input) => {
+function changeCaptionEvent(){
+    const { headInputs } = getTableElements()
+
+    headInputs.forEach((input) => {
         const inputElemnt = input as HTMLInputElement;
 
         let currentValue: string;
@@ -73,19 +130,23 @@ function changeCaptionEvent(theadInputparameter: NodeListOf<Element> = theadInpu
     })
 }
 
-function changeContentEvent(theadInputparameter: NodeListOf<Element> = theadInput, tBodyTrParameter: NodeListOf<Element> = tBodyTr){
-    theadInputparameter.forEach((theadInput, columnIndex) => {
+function changeContentEvent(){
+    const { headInputs } = getTableElements()
+
+    headInputs.forEach((theadInput, columnIndex) => {
         const inputElemnt = theadInput as HTMLInputElement;
         const key = inputElemnt.value
         const value: number[] = []
 
-        collectCurrentTableData(tBodyTrParameter, columnIndex, value)
-        executeChangeEvent(tBodyTrParameter, columnIndex, key, value)
+        collectCurrentTableData(columnIndex, value)
+        executeChangeEvent(columnIndex, key, value)
     })
 }
 
-function collectCurrentTableData(tBodyTrParameter: NodeListOf<Element> = tBodyTr, columnIndex: number, value: number[]){
-    tBodyTrParameter.forEach((tBodyTr) => {
+function collectCurrentTableData(columnIndex: number, value: number[]){
+    const { bodyTrs } = getTableElements()
+
+    bodyTrs.forEach((tBodyTr) => {
         const allInputs = tBodyTr.querySelectorAll('input') as NodeListOf<Element>
 
         // break last row
@@ -100,8 +161,10 @@ function collectCurrentTableData(tBodyTrParameter: NodeListOf<Element> = tBodyTr
     })
 }
 
-function executeChangeEvent(tBodyTrParameter: NodeListOf<Element> = tBodyTr, columnIndex: number, key: string, value: number[]){
-    tBodyTrParameter.forEach((tBodyTr, rowIndex) => {
+function executeChangeEvent(columnIndex: number, key: string, value: number[]){
+    const { bodyTrs } = getTableElements()
+
+    bodyTrs.forEach((tBodyTr, rowIndex) => {
         const allInputs = tBodyTr.querySelectorAll('input') as NodeListOf<Element>
 
         // break last row
@@ -141,10 +204,12 @@ function executeChangeEvent(tBodyTrParameter: NodeListOf<Element> = tBodyTr, col
     })
 }
 
-function addTabelColEvent(tableElementParameter: HTMLElement = tableElement, tableHeadParameter: HTMLElement = tableHead, addTableColParameter: HTMLElement = addTableCol){
-    addTableCol.addEventListener('click', () => {        
-        const allTabelCols = tableElementParameter.querySelectorAll('thead th') as NodeListOf<Element>
-        const allTableRows = tableElementParameter.querySelectorAll('tbody tr') as NodeListOf<Element>
+function addTableColEvent(){
+    const { table, head ,addColButton } = getTableElements()
+
+    addColButton.addEventListener('click', () => {        
+        const allTabelCols = table.querySelectorAll('thead th') as NodeListOf<Element>
+        const allTableRows = table.querySelectorAll('tbody tr') as NodeListOf<Element>
 
         const addTargetCol = allTabelCols[allTabelCols.length -1]
 
@@ -154,7 +219,7 @@ function addTabelColEvent(tableElementParameter: HTMLElement = tableElement, tab
             <input type="text" value="Beispiel ${allTabelCols.length -1}">
         `
 
-        tableHeadParameter.insertBefore(newCol, addTargetCol)
+        head.insertBefore(newCol, addTargetCol)
 
         allTableRows.forEach((row, index) => {
             const allRowData = row.querySelectorAll('td') as NodeListOf<Element>
@@ -172,14 +237,16 @@ function addTabelColEvent(tableElementParameter: HTMLElement = tableElement, tab
         })
         
         ChartInstance.updateMapData(`Beispiel ${allTabelCols.length -1}`, new Array(allTableRows.length -1).fill(0))
-        refreshTableEvent()
+        refreshInputEvents()
     })
 }
 
-function addTableRowEvent(tableElementParameter: HTMLElement = tableElement, tableBodyParameter: HTMLElement = tableBody, addTableRowParameter: HTMLElement = addTableRow){
-    addTableRowParameter.addEventListener('click', () => {
-        const allTabelCols = tableElementParameter.querySelectorAll('thead th') as NodeListOf<Element>
-        const allTableRows = tableElementParameter.querySelectorAll('tbody tr') as NodeListOf<Element>
+function addTableRowEvent(){
+    const { table, body, addRowButton } = getTableElements()
+    
+    addRowButton.addEventListener('click', () => {
+        const allTabelCols = table.querySelectorAll('thead th') as NodeListOf<Element>
+        const allTableRows = table.querySelectorAll('tbody tr') as NodeListOf<Element>
         const addTargetRow = allTableRows[allTableRows.length -1]
 
         const newRow = document.createElement("tr");
@@ -202,8 +269,30 @@ function addTableRowEvent(tableElementParameter: HTMLElement = tableElement, tab
             newRow.appendChild(newTd)
         })
 
-        tableBodyParameter.insertBefore(newRow, addTargetRow)
+        body.insertBefore(newRow, addTargetRow)
         updateChartData()
-        refreshTableEvent()
+        refreshInputEvents()
     })
+}
+
+function getTableElements() {
+    const table = document.querySelector('table') as HTMLElement
+    const head = table.querySelector('thead tr') as HTMLElement
+    const body = table.querySelector('tbody') as HTMLElement
+
+    const headInputs = head.querySelectorAll('input') as NodeListOf<Element>
+    const bodyTrs = body.querySelectorAll('tr') as NodeListOf<Element>
+
+    const addRowButton = table.querySelector('#add-table-row-button') as HTMLElement
+    const addColButton = table.querySelector('#add-table-col-button') as HTMLElement
+
+    return {
+        table,
+        head,
+        headInputs,
+        body,
+        bodyTrs,
+        addRowButton,
+        addColButton,
+    }
 }

@@ -1,15 +1,24 @@
 import { IMessageDialog } from "../types/IMessageDialog"
 
 export function messageDialog(){
-    const messageDialogContainer = document.querySelector('message-dialog') as IMessageDialog
-    const buttonContainer = messageDialogContainer.querySelector('#button-container') as HTMLElement
-
-    closeErrorDialog(messageDialogContainer, buttonContainer)
+    closeErrorDialog()
 }
 
-function closeErrorDialog(messageDialogContainer: HTMLElement, buttonContainer: HTMLElement){
-    const errorButton = buttonContainer.querySelector('#error-ok-button') as HTMLElement
+function closeErrorDialog(){
+    const { messageDialog , button } = getMessageDialogElements()
+
+    const errorButton = button.querySelector('#error-ok-button') as HTMLElement
     errorButton.addEventListener('click', () => {
-        messageDialogContainer.classList.remove('is-visible')
+        messageDialog.classList.remove('is-visible')
     })
+}
+
+function getMessageDialogElements(){
+    const messageDialog = document.querySelector('message-dialog') as IMessageDialog
+    const button = messageDialog.querySelector('#button-container') as HTMLElement
+
+    return {
+        messageDialog,
+        button
+    }
 }

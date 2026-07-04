@@ -32,7 +32,7 @@ class Workflow{
         }
     }
 
-    public updateStatusBar(){
+    private updateStatusBar(){
         const nextWorkflow = this._currentWorkflow
         const step = document.querySelector('status-bar > ol') as HTMLElement
         if(nextWorkflow === WorkflowType.EDIT_TABLE){

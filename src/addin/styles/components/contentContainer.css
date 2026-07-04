@@ -1,10 +1,14 @@
 #content-container{
     margin-top: var(--space-ssm);
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    gap: var(--space-md);
-    position: relative;
+
+    custom-content{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        gap: var(--space-md);
+        position: relative;
+    }
 }
 
 @media (max-width: 800px) {

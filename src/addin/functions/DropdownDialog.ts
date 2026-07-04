@@ -3,14 +3,8 @@ import { ChartTypes } from "../enums/ChartType"
 import { tableIsValid } from "./TabelDialog"
 
 export function dropdownDialog(){
-    const dropdownContainer = document.querySelector('.dropdown-container') as HTMLElement
-    const button = dropdownContainer.querySelector('button') as HTMLElement
-
-    const chartType = button.querySelector('#chart-type') as HTMLElement
-    const dropdownButtons = dropdownContainer.querySelectorAll('.dropdown > li > button') as NodeListOf<HTMLElement>
-
-    toggleDropdown(button, dropdownContainer)
-    toggleDropdownButton(dropdownButtons, chartType, dropdownContainer)
+    toggleDropdown()
+    toggleDropdownButton()
 }
 
 function getNewChartType(button: HTMLElement): ChartTypes {
@@ -26,7 +20,9 @@ function getNewChartType(button: HTMLElement): ChartTypes {
     }
 }
 
-function toggleDropdownButton(dropdownButtons: NodeListOf<HTMLElement>, chartType: HTMLElement, dropdownContainer: HTMLElement){
+function toggleDropdownButton(){
+    const { dropdown, dropdownButtons, chartType } = getDropdownElements()
+
     dropdownButtons.forEach((dropDownButton) => {
         dropDownButton.addEventListener('click', () => {
             const newNewChartType = getNewChartType(dropDownButton)
@@ -34,7 +30,7 @@ function toggleDropdownButton(dropdownButtons: NodeListOf<HTMLElement>, chartTyp
             chartType.textContent = newNewChartType
             convertChart(newNewChartType)
 
-            dropdownContainer.classList.toggle('is-visible')
+            dropdown.classList.toggle('is-visible')
         })
     })
 }
@@ -47,17 +43,34 @@ function convertChart(chartType: ChartTypes){
     : ChartInstance.convertToLineChart()
 }
 
-function toggleDropdown(button : HTMLElement, dropdownContainer: HTMLElement){
-    const errorDialog = document.querySelector('.message-dialog-container') as HTMLElement
+function toggleDropdown(){
+    const { dropdown, mainButton, errorDialog } = getDropdownElements()
 
-    button.addEventListener('click', () => {
+    mainButton.addEventListener('click', () => {
         const chartIsDestroyed = ChartInstance.getChartIsDestroyed()
         const getTableIsValid = tableIsValid()
                 
         if(getTableIsValid && !chartIsDestroyed){
-            dropdownContainer.classList.toggle('is-visible')
+            dropdown.classList.toggle('is-visible')
         } else {
             errorDialog.classList.add('is-visible')
         }
     })
+}
+
+function getDropdownElements(){
+    const dropdown = document.querySelector('.dropdown-container') as HTMLElement
+    const mainButton = dropdown.querySelector('button') as HTMLElement
+
+    const chartType = mainButton.querySelector('#chart-type') as HTMLElement
+    const dropdownButtons = dropdown.querySelectorAll('.dropdown > li > button') as NodeListOf<HTMLElement>
+    const errorDialog = document.querySelector('.message-dialog-container') as HTMLElement
+
+    return {
+        dropdown,
+        mainButton,
+        chartType,
+        dropdownButtons,
+        errorDialog
+    }
 }

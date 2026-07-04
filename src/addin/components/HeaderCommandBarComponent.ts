@@ -1,3 +1,5 @@
+import { headerCommandBarDialog } from "../functions/HeaderCommandBarDialog"
+
 class HeaderCommandBarComponent extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
@@ -16,6 +18,8 @@ class HeaderCommandBarComponent extends HTMLElement {
                 </li>
             </ul>
         `
+
+        headerCommandBarDialog()
     }
 }
 
