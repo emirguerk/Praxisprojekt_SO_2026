@@ -7,4 +7,8 @@ footer-navigation{
     .primary-button{
         padding: var(--space-sm) var(--space-md);
     }
+
+    #insert-button{
+        display: none;
+    }
 }

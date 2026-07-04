@@ -10,10 +10,7 @@ status-bar{
 
         li{
             padding: var(--space-sm);
-        }
-
-        li:first-child{
-            font-weight: var(--font-weight-bold);
+            font-weight: var(--font-weight-semiBold)
         }
 
         &:before{

@@ -14,6 +14,11 @@
         background-color: var(--color-active-darker);
         cursor: pointer;
     }
+
+    &.disabled{
+        background-color: var(--color-6CA2BF-30);
+        cursor: default;
+    }
 }
 
 .primary-button{

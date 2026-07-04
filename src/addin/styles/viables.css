@@ -35,6 +35,7 @@
     --font-family-primary:      Arial, system-ui, sans-serif;
     --font-size-regular:        1rem; /* 16px */
     --font-weight-regular:      normal;
+    --font-weight-semiBold:     600;
     --font-weight-bold:         bold;
 
     /* border */

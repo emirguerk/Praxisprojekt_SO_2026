@@ -14,9 +14,4 @@ import "../styles/components/footerNavigationCommandBar.css"
 import "../styles/components/messageDialog.css"
 import "../styles/components/isVisible.css"
 
-export function initDialogStyles(){
-    // setTimeout(() => {
-    //     const step = document.querySelector('status-bar > ol') as HTMLElement
-    //     step.style.setProperty("--progress-width", "66.66%")
-    // }, 5000)
-}
+export function initDialogStyles(){}

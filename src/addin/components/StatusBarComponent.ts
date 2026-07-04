@@ -1,5 +1,9 @@
+import { WorkflowInstance } from "../classes/Workflow"
+
 class StatusBarComponent extends HTMLElement {
     connectedCallback() {
+        WorkflowInstance.init()
+
         this.innerHTML = `
             <ol>
                 <li>Edit Table</li>
