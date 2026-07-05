@@ -135,11 +135,10 @@ function changeContentEvent(){
 
     headInputs.forEach((theadInput, columnIndex) => {
         const inputElemnt = theadInput as HTMLInputElement;
-        const key = inputElemnt.value
         const value: number[] = []
 
         collectCurrentTableData(columnIndex, value)
-        executeChangeEvent(columnIndex, key, value)
+        executeChangeEvent(columnIndex, value)
     })
 }
 
@@ -161,7 +160,7 @@ function collectCurrentTableData(columnIndex: number, value: number[]){
     })
 }
 
-function executeChangeEvent(columnIndex: number, key: string, value: number[]){
+function executeChangeEvent(columnIndex: number, value: number[]){
     const { bodyTrs } = getTableElements()
 
     bodyTrs.forEach((tBodyTr, rowIndex) => {
@@ -198,8 +197,11 @@ function executeChangeEvent(columnIndex: number, key: string, value: number[]){
             if(currentValue === target.value || !currentInput.checkValidity())
                 return
 
+            const { headInputs } = getTableElements();
+            const currentKey = (headInputs[columnIndex] as HTMLInputElement).value;
+
             value[rowIndex] = parseInt(target.value)
-            ChartInstance.updateMapData(key, value)
+            ChartInstance.updateMapData(currentKey, value)
         })
     })
 }
