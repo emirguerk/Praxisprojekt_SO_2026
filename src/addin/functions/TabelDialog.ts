@@ -43,7 +43,7 @@ export function createTableHtml(): string{
                 <input type="text"
                        pattern="^[0-9]+$"
                        value="${col[i] ?? 0}"
-                       required>
+                       required />
             `
             tr.appendChild(td)
         }

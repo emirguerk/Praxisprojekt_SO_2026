@@ -1,4 +1,3 @@
-import { WorkflowInstance } from "../classes/Workflow"
 import { WorkflowType } from "../enums/WorkflowType"
 
 class ContentComponent extends HTMLElement {
@@ -14,7 +13,7 @@ class ContentComponent extends HTMLElement {
             case WorkflowType.EDIT_CHART:
                 return this.getEditChartWorkflowHtml()
             case WorkflowType.INSERT_CHART:
-                return this.getInserChartWorkflowHtml()
+                return this.getInsertChartWorkflowHtml()
             default:
                 throw Error(`${currentWorkflow} not found Workflow.`)
         }
@@ -30,13 +29,13 @@ class ContentComponent extends HTMLElement {
 
     private getEditChartWorkflowHtml(){
         return `
-            <div>Chart</div>
+            <custom-form></custom-form>
             <custom-chart></custom-chart>
             <message-dialog type="error"></message-dialog>
         `
     }
 
-    private getInserChartWorkflowHtml(){
+    private getInsertChartWorkflowHtml(){
         return `Insert`
     }
 }
