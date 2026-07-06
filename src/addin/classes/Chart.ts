@@ -20,6 +20,18 @@ class Chart{
         this._currentChartOptions = { bar: { horizontal: false } }
     }
 
+    public async getImageAsBase64(): Promise<string | null> {
+        const value = await this._apexChartsInstance?.dataURI();
+
+        if (!value || !("imgURI" in value)) 
+            return null
+
+        const imgURI = value.imgURI;
+        const base64 = imgURI.split(",")[1];
+
+        return base64;
+    }
+
     public initChart(chartOption ?: ApexOptions, chartType?: ChartTypes){
         this._apexChartsInstance = new ApexCharts(
             document.querySelector('#chart') as HTMLElement, 

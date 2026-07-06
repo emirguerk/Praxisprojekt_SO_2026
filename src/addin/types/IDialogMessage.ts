@@ -1,0 +1,1 @@
+export type IDialogMessage = { message: string, origin: string | undefined }
