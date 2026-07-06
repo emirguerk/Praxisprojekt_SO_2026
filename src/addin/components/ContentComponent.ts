@@ -36,7 +36,7 @@ class ContentComponent extends HTMLElement {
     }
 
     private getInsertChartWorkflowHtml(){
-        return `Insert`
+        return `<custom-insert></custom-insert>`
     }
 }
 

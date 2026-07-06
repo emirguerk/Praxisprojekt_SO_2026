@@ -1,4 +1,6 @@
 #root{
+    display: flex;
+    flex-direction: column;
     min-height: 100%;
 
     & > header{
@@ -10,6 +12,10 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
+    }
+
+    & > main:has(custom-loading){
+        flex: 1
     }
 
     & > footer{
