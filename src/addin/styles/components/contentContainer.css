@@ -9,11 +9,18 @@
         gap: var(--space-md);
         position: relative;
     }
+
+    &:has(custom-loading), custom-content:has(custom-loading), custom-insert{
+        display: flex;
+        flex: 1;
+    }
 }
 
 @media (max-width: 800px) {
     #content-container{
-        justify-content: center;
-        flex-wrap: wrap;
+        custom-content{
+            justify-content: center;
+            flex-wrap: wrap;
+        }
     }
 }

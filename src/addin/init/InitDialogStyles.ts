@@ -10,8 +10,10 @@ import "../styles/components/link.css"
 import "../styles/components/customChart.css"
 import "../styles/components/contentContainer.css"
 import "../styles/components/table.css"
+import "../styles/components/form.css"
 import "../styles/components/footerNavigationCommandBar.css"
 import "../styles/components/messageDialog.css"
 import "../styles/components/isVisible.css"
+import "../styles/components/loading.css"
 
 export function initDialogStyles(){}

@@ -1,5 +1,7 @@
 import { ChartInstance } from "../classes/Chart"
+import { WorkflowInstance } from "../classes/Workflow"
 import { ChartTypes } from "../enums/ChartType"
+import { WorkflowType } from "../enums/WorkflowType"
 import { tableIsValid } from "./TabelDialog"
 
 export function dropdownDialog(){
@@ -25,11 +27,19 @@ function toggleDropdownButton(){
 
     dropdownButtons.forEach((dropDownButton) => {
         dropDownButton.addEventListener('click', () => {
+            const currentWorkFlow = WorkflowInstance.getCurrentWorkflow()
             const newNewChartType = getNewChartType(dropDownButton)
             
             chartType.textContent = newNewChartType
             convertChart(newNewChartType)
 
+            if(currentWorkFlow === WorkflowType.EDIT_CHART) {
+                const contentContainer = document.querySelector('#content-container') as HTMLElement
+                contentContainer.innerHTML = `
+                    <custom-content workflow="${WorkflowType.EDIT_CHART}"></custom-content>
+                `
+            }
+            
             dropdown.classList.toggle('is-visible')
         })
     })
