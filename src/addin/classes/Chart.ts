@@ -1,6 +1,9 @@
 import ApexCharts, { ApexOptions } from "apexcharts"
 import { ChartTypes } from "../enums/ChartType"
 import { IBarOptions, IBarOrLineChartData, IChartOptions, IDonutChartData, IDonutOptions, ILineOptions, IText } from "../types/IChartData"
+import { v4 as uuid } from "uuid"
+import { fromBase64, toBase64 } from 'js-base64'
+import { IImageData } from "../types/IImageData"
 
 class Chart{
     private _isActive: boolean = false
@@ -18,6 +21,21 @@ class Chart{
         this._currentTitle = { text: "" }
         this._currentDescription = { text: "" }
         this._currentChartOptions = { bar: { horizontal: false } }
+    }
+
+    public getImageDataAsBase64() :string {
+        const id = uuid()
+        const imageData = {
+            id,
+            chartDataMap: Array.from(this._chartDataMap),
+            chartType: this._currentChartType,
+            title: this._currentTitle,
+            description: this._currentDescription,
+            chartOptions: this._currentChartOptions
+        } as IImageData
+
+        const json: string = JSON.stringify(imageData)
+        return toBase64(json)
     }
 
     public async getImageAsBase64(): Promise<string | null> {

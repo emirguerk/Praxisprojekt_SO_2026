@@ -18,7 +18,9 @@
   "dependencies": {
     "apexcharts": "^5.15.0",
     "express": "^5.2.1",
-    "path": "^0.12.7"
+    "js-base64": "^3.8.0",
+    "path": "^0.12.7",
+    "uuid": "^14.0.1"
   },
   "scripts": {
     "clean:build": "if exist public\\dist rmdir public\\dist /s /q && if exist private\\dist rmdir private\\dist /s /q ",
