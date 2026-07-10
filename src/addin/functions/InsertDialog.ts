@@ -14,25 +14,14 @@ async function insert(): Promise<boolean>{
         if (!base64) return false;
 
         await Word.run(async (context) => {
-            context.document.body.insertInlinePictureFromBase64(
+            const image = context.document.body.insertInlinePictureFromBase64(
                 base64,
                 Word.InsertLocation.end
-            );
+            )
 
-            const customXmlParts = context.document.customXmlParts;
-            customXmlParts.load('items')
+            addContentControls(image)
 
-            await context.sync();
-            
-            await createCustomXmlPart(context, customXmlParts)
-
-            const imageDataAsBase64 = ChartInstance.getImageDataAsBase64()
-            const customXmlPart = await getCustomXmlPart(context, customXmlParts.items)
-            
-            await saveNewCustomXmlPart(context, customXmlPart, imageDataAsBase64)
-
-            const xmlResult2 = customXmlPart.getXml();
-            await context.sync();
+            await addCustomXmlPart(context)
         })
     } catch(e) {
         console.error(e)
@@ -40,6 +29,25 @@ async function insert(): Promise<boolean>{
     }
 
     return true;
+}
+
+function addContentControls(image: Word.InlinePicture){
+    const contentControl = image.insertContentControl()
+    contentControl.tag = ChartInstance.getChartId()
+}
+
+async function addCustomXmlPart(context: Word.RequestContext){
+    const customXmlParts = context.document.customXmlParts;
+    customXmlParts.load('items')
+
+    await context.sync();
+    
+    await createCustomXmlPart(context, customXmlParts)
+
+    const imageDataAsBase64 = ChartInstance.getImageDataAsBase64()
+    const customXmlPart = await getCustomXmlPart(context, customXmlParts.items)
+    
+    await saveNewCustomXmlPart(context, customXmlPart, imageDataAsBase64)
 }
 
 async function createCustomXmlPart(context: Word.RequestContext, customXmlParts: Word.CustomXmlPartCollection){

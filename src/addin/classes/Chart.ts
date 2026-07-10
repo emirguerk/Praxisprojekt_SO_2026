@@ -7,6 +7,7 @@ import { IImageData } from "../types/IImageData"
 
 class Chart{
     private _isActive: boolean = false
+    private _id: string
     private _currentChartType : ChartTypes
     private _currentTitle : IText
     private _currentDescription: IText
@@ -15,6 +16,7 @@ class Chart{
     private _chartDataMap : Map<string, number[]> = new Map()
 
     constructor(){
+        this._id = uuid()
         this._chartDataMap.set("Beispiel 1", [1, 2, 3])
         this._chartDataMap.set("Beispiel 2", [1, 2, 3])
         this._currentChartType = ChartTypes.BAR
@@ -24,9 +26,8 @@ class Chart{
     }
 
     public getImageDataAsBase64() :string {
-        const id = uuid()
         const imageData = {
-            id,
+            id: this._id,
             chartDataMap: Array.from(this._chartDataMap),
             chartType: this._currentChartType,
             title: this._currentTitle,
@@ -94,6 +95,10 @@ class Chart{
     public updateMapData(key: string, newData: number[]){
         this._chartDataMap.set(key, newData)
         if(!this.getChartIsDestroyed()) this.updateChartView()
+    }
+
+    public getChartId(): string{
+        return this._id
     }
 
     private updateChartView(){
