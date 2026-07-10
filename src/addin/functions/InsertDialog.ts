@@ -33,9 +33,6 @@ async function insert(): Promise<boolean>{
 
             const xmlResult2 = customXmlPart.getXml();
             await context.sync();
-
-            console.log(xmlResult2.value)
-
         })
     } catch(e) {
         console.error(e)

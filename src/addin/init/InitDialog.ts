@@ -1,4 +1,4 @@
-import { LoadingType } from "../enums/LoadingType"
+import { LoadingOption } from "../enums/LoadingOption"
 
 export function initDialog(){
     const root = document.querySelector('#root') as HTMLElement
@@ -8,7 +8,7 @@ export function initDialog(){
             <status-bar></status-bar>
         </header>
         <main>
-            <custom-loading type="${LoadingType.LOAD}"></custom-loading>
+            <custom-loading type="${LoadingOption.LOAD}"></custom-loading>
         </main>
     `
 

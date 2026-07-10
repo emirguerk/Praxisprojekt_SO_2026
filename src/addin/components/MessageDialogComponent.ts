@@ -1,4 +1,4 @@
-import { MessageDialogType } from "../enums/MessageDialogType"
+import { MessageDialog } from "../enums/MessageDialog"
 import { messageDialog } from "../functions/MessageDialog"
 
 class MessageDialogComponent extends HTMLElement {
@@ -12,7 +12,7 @@ class MessageDialogComponent extends HTMLElement {
 
     private getDialogAsHtml(type: string){
         switch(type){
-            case MessageDialogType.ERROR:
+            case MessageDialog.ERROR:
                 return this.getError()
             default:
                 throw Error(`Unable to get Message Dialog from type: ${type}`)

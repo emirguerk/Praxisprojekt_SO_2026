@@ -1,6 +1,5 @@
 import { ChartInstance } from "../classes/Chart"
 import { ChartTypes } from "../enums/ChartType"
-import { WorkflowType } from "../enums/WorkflowType"
 import { formDialog } from "../functions/FormDialog"
 
 class FormComponent extends HTMLElement {

@@ -1,13 +1,12 @@
 import { WorkflowInstance } from "../classes/Workflow";
-import { WorkflowType } from "../enums/WorkflowType";
+import { WorkflowOption } from "../enums/WorkflowOption";
 import { IFooterNavigationBar } from "../types/IFooterNavigationBar";
-import { tableDialog } from "./TabelDialog";
 
 export function footerNavigationDialog(){
     const { backButton, nextButton, insertButton } = getFooterNavigationElements()
 
     backButton.addEventListener("click", () => {        
-        if(WorkflowInstance.getCurrentWorkflow() !== WorkflowType.EDIT_CHART)
+        if(WorkflowInstance.getCurrentWorkflow() !== WorkflowOption.EDIT_CHART)
             return
 
         WorkflowInstance.backWorkflow()
@@ -32,7 +31,7 @@ function startEditTableWorkflow(){
     nextButton.style.setProperty("display", "block")
     insertButton.style.setProperty("display", "none")
 
-    content.innerHTML = `<custom-content workflow="${WorkflowType.EDIT_TABLE}"></custom-content>`
+    content.innerHTML = `<custom-content workflow="${WorkflowOption.EDIT_TABLE}"></custom-content>`
 }
 
 function startEditChartWorkflow(){
@@ -42,7 +41,7 @@ function startEditChartWorkflow(){
     nextButton.style.setProperty("display", "none")
     insertButton.style.setProperty("display", "block")
 
-    content.innerHTML = `<custom-content workflow="${WorkflowType.EDIT_CHART}"></custom-content>`
+    content.innerHTML = `<custom-content workflow="${WorkflowOption.EDIT_CHART}"></custom-content>`
 }
 
 function startInserChartWorkflow(){
@@ -54,7 +53,7 @@ function startInserChartWorkflow(){
 
     main.innerHTML = `
             <div id="content-container">
-                <custom-content workflow="${WorkflowType.INSERT_CHART}"></custom-content>
+                <custom-content workflow="${WorkflowOption.INSERT_CHART}"></custom-content>
             </div>
         `
 }

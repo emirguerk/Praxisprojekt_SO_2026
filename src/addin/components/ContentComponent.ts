@@ -1,4 +1,4 @@
-import { WorkflowType } from "../enums/WorkflowType"
+import { WorkflowOption } from "../enums/WorkflowOption"
 
 class ContentComponent extends HTMLElement {
     connectedCallback() {
@@ -6,13 +6,13 @@ class ContentComponent extends HTMLElement {
         this.innerHTML = this.getHtml(parseInt(workflow))
     }
 
-    private getHtml(currentWorkflow: WorkflowType){
+    private getHtml(currentWorkflow: WorkflowOption){
         switch(currentWorkflow){
-            case WorkflowType.EDIT_TABLE:
+            case WorkflowOption.EDIT_TABLE:
                 return this.getEditTableWorkflowHtml()
-            case WorkflowType.EDIT_CHART:
+            case WorkflowOption.EDIT_CHART:
                 return this.getEditChartWorkflowHtml()
-            case WorkflowType.INSERT_CHART:
+            case WorkflowOption.INSERT_CHART:
                 return this.getInsertChartWorkflowHtml()
             default:
                 throw Error(`${currentWorkflow} not found Workflow.`)
