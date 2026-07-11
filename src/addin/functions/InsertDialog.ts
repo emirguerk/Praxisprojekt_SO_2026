@@ -1,5 +1,6 @@
 import { ChartInstance } from "../classes/Chart"
-import { XmlPartID } from "../enums/XmlPartID";
+import { insertContentControls } from "./ContentControls";
+import { createCustomXmlPart, getCustomXmlPart, saveNewCustomXmlPart } from "./CustomXmlPart";
 
 export async function insertDialog(){
     const result = await insert()
@@ -32,8 +33,7 @@ async function insert(): Promise<boolean>{
 }
 
 function addContentControls(image: Word.InlinePicture){
-    const contentControl = image.insertContentControl()
-    contentControl.tag = ChartInstance.getChartId()
+    insertContentControls(image)
 }
 
 async function addCustomXmlPart(context: Word.RequestContext){
@@ -48,56 +48,4 @@ async function addCustomXmlPart(context: Word.RequestContext){
     const customXmlPart = await getCustomXmlPart(context, customXmlParts.items)
     
     await saveNewCustomXmlPart(context, customXmlPart, imageDataAsBase64)
-}
-
-async function createCustomXmlPart(context: Word.RequestContext, customXmlParts: Word.CustomXmlPartCollection){
-    const hasAlreadyCustomXmlPartCreated = await hasAlreadyCustomXmlPart(context, customXmlParts.items)
-    
-    if(hasAlreadyCustomXmlPartCreated)
-        return
-
-    customXmlParts.add(`<${XmlPartID.VALUE}>${JSON.stringify([])}</${XmlPartID.VALUE}>`)
-}
-
-async function saveNewCustomXmlPart(context: Word.RequestContext, item: Word.CustomXmlPart, newImageData: string) {
-    const parser = new DOMParser()
-    const xmlResult = item.getXml();
-
-    await context.sync();
-
-    const xml = parser.parseFromString(xmlResult.value, "text/xml")
-    const content = xml.documentElement.textContent
-    const listOfImageData = JSON.parse(content) as string[]
-    listOfImageData.push(newImageData)
-
-    item.setXml(`<${XmlPartID.VALUE}>${JSON.stringify(listOfImageData)}</${XmlPartID.VALUE}>`)
-    await context.sync();
-}
-
-async function getCustomXmlPart(context: Word.RequestContext,items: Word.CustomXmlPart[]): Promise<Word.CustomXmlPart> {
-    for (const item of items) {
-        const xmlResult = item.getXml();
-
-        await context.sync();
-
-        if (xmlResult.value.includes(XmlPartID.VALUE)) {  
-            return item
-        }
-    }
-
-    throw(`Not Found CustomXmLPart ${XmlPartID.VALUE}`)
-}
-
-async function hasAlreadyCustomXmlPart(context: Word.RequestContext,items: Word.CustomXmlPart[]): Promise<boolean> {
-    for (const item of items) {
-        const xmlResult = item.getXml();
-
-        await context.sync();
-
-        if (xmlResult.value.includes(XmlPartID.VALUE)) {
-            return true;
-        }
-    }
-
-    return false;
 }

@@ -1,5 +1,6 @@
-export enum UseCase{
+export enum UseCaseOption{
     CREATE_CHART = "createChart",
     UPDATE_CHART = "updateChart", 
-    SYNC = "sync"
+    SYNC = "sync",
+    NOT_INIT = "notInitialized"
 }

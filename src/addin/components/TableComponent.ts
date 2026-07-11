@@ -1,3 +1,4 @@
+import { ChartInstance } from "../classes/Chart"
 import { createTableHtml, tableDialog } from "../functions/TabelDialog"
 
 class TableComponent extends HTMLElement {

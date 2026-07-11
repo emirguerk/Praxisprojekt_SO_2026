@@ -2,7 +2,7 @@ import ApexCharts, { ApexOptions } from "apexcharts"
 import { ChartTypes } from "../enums/ChartType"
 import { IBarOptions, IBarOrLineChartData, IChartOptions, IDonutChartData, IDonutOptions, ILineOptions, IText } from "../types/IChartData"
 import { v4 as uuid } from "uuid"
-import { fromBase64, toBase64 } from 'js-base64'
+import { decode, toBase64 } from 'js-base64'
 import { IImageData } from "../types/IImageData"
 
 class Chart{
@@ -49,6 +49,22 @@ class Chart{
         const base64 = imgURI.split(",")[1];
 
         return base64;
+    }
+
+    public initChartData(chartId: string, listOfBase64: string[]){
+        for(const base64 of listOfBase64){
+            const chartData = JSON.parse(decode(base64)) as IImageData
+
+            if(chartData.id === chartId){
+                this._id = chartData.id
+                this._chartDataMap = new Map(chartData.chartDataMap)
+                this._currentChartType = chartData.chartType
+                this._currentTitle = chartData.title
+                this._currentDescription = chartData.description
+                this._currentChartOptions = chartData.chartOptions
+                return
+            }
+        }
     }
 
     public initChart(chartOption ?: ApexOptions, chartType?: ChartTypes){

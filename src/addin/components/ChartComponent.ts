@@ -1,8 +1,8 @@
-import { ApexOptions } from "apexcharts";
-import { ChartInstance } from "../classes/Chart";
+import { ApexOptions } from "apexcharts"
+import { ChartInstance } from "../classes/Chart"
 
 class ChartComponent extends HTMLElement {
-    connectedCallback() {
+    async connectedCallback() {
         this.innerHTML = `        
             <figure id="chart"></figure>
         `

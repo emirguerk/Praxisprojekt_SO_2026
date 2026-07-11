@@ -5,8 +5,15 @@ import { WorkflowOption } from "../enums/WorkflowOption"
 import { tableIsValid } from "./TabelDialog"
 
 export function dropdownDialog(){
+    setCurrentChartType()
     toggleDropdown()
     toggleDropdownButton()
+}
+
+function setCurrentChartType(){
+    const { chartType } = getDropdownElements()
+    const newChartType = ChartInstance.getCurrentChartType()
+    chartType.textContent = newChartType
 }
 
 function getNewChartType(button: HTMLElement): ChartTypes {

@@ -1,5 +1,7 @@
-import { UseCase } from "../enums/UseCase";
+import { UseCaseInstance } from "../classes/UseCase";
+import { UseCaseOption } from "../enums/UseCase";
 import { insertDialog } from "../functions/InsertDialog"
+import { updateDialog } from "../functions/UpdateDialog";
 
 class InsertComponent extends HTMLElement {
     connectedCallback() {
@@ -7,29 +9,23 @@ class InsertComponent extends HTMLElement {
             <custom-loading type="insert"></custom-loading>
         `
 
-        this.executeCurrentUseCase()
-        this.fetchUseCase()
+        this.executeUseCase()
     }
 
-    private fetchUseCase(){
-        Office.context.ui.messageParent(JSON.stringify({ fetchUseCase: true }))
-    }
+    private executeUseCase(){
+        const currentUseCase : UseCaseOption = UseCaseInstance.getUseCase()
+        
+        switch(currentUseCase){
+            case UseCaseOption.CREATE_CHART:
+                insertDialog()
+                return
 
-    private executeCurrentUseCase() {
-        Office.context.ui.addHandlerAsync(Office.EventType.DialogParentMessageReceived,
-            (args) => {
-                const message = JSON.parse(args.message);
-                const useCase = message.useCase as UseCase
+            case UseCaseOption.UPDATE_CHART:
+                return
 
-                if(useCase === UseCase.CREATE_CHART){
-                    insertDialog()
-                } else if (useCase === UseCase.UPDATE_CHART) {
-
-                } else {
-
-                }
-            }
-        )
+            default:
+                throw new Error(`${currentUseCase} not initialized`)
+        }
     }
 }
 
