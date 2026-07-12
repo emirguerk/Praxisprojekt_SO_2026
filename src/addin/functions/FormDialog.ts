@@ -1,7 +1,7 @@
 import { ChartInstance } from "../classes/Chart"
-import { BarOptionType } from "../enums/BarOptionType"
+import { BarOption } from "../enums/BarOption"
 import { ChartTypes } from "../enums/ChartType"
-import { LineOptionType } from "../enums/LineOptionType"
+import { LineOption } from "../enums/LineOption"
 import { IBarOptions, IDonutOptions, ILineOptions } from "../types/IChartData"
 
 export function formDialog(){
@@ -55,7 +55,7 @@ function changeChartOptions(){
 }
 
 function getBarOptions(value: string) : IBarOptions {
-    if (value === BarOptionType.HORIZONTAL)
+    if (value === BarOption.HORIZONTAL)
         return { bar: { horizontal: true } }
     
     return { bar: { horizontal: false } }
@@ -71,12 +71,12 @@ function getDonutOptions(value: string) : IDonutOptions {
 } 
 
 function getLineOptions(value: string) : ILineOptions {
-    if(value === LineOptionType.STRAIGHT){
-        return { curve: LineOptionType.STRAIGHT  }
-    } else if(value === LineOptionType.SMOOTH){
-        return { curve: LineOptionType.SMOOTH }
+    if(value === LineOption.STRAIGHT){
+        return { curve: LineOption.STRAIGHT  }
+    } else if(value === LineOption.SMOOTH){
+        return { curve: LineOption.SMOOTH }
     } else {
-        return { curve: LineOptionType.STEPLINE  }
+        return { curve: LineOption.STEPLINE  }
     }
 } 
 

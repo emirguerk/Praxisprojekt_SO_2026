@@ -1,9 +1,9 @@
-import { LoadingType } from "../enums/LoadingType"
+import { LoadingOption } from "../enums/LoadingOption"
 import { disconnectLoadingDialog, loadingDialog } from "../functions/LoafingDialog"
 
 class LoadingComponent extends HTMLElement {
     connectedCallback() {
-        const type = this.getAttribute('type') as LoadingType
+        const type = this.getAttribute('type') as LoadingOption
 
         this.innerHTML = this.getHtml(type)
         loadingDialog()
@@ -13,11 +13,11 @@ class LoadingComponent extends HTMLElement {
         disconnectLoadingDialog()
     }
 
-    private getHtml(type: LoadingType) : string{
+    private getHtml(type: LoadingOption) : string{
         switch(type){
-            case LoadingType.LOAD:
+            case LoadingOption.LOAD:
                 return `<div>Loading <span id="point-state">.</span></div>`
-            case LoadingType.INSERT:
+            case LoadingOption.INSERT:
                 return `<div>Inserting <span id="point-state">.</span></div>`
             default:
                 return ``

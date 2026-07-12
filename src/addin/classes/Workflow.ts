@@ -1,30 +1,30 @@
-import { WorkflowType } from "../enums/WorkflowType";
+import { WorkflowOption } from "../enums/WorkflowOption";
 
 class Workflow{
-    private _currentWorkflow: WorkflowType;
+    private _currentWorkflow: WorkflowOption;
 
     constructor(){
-        this._currentWorkflow = WorkflowType.EDIT_TABLE
+        this._currentWorkflow = WorkflowOption.EDIT_TABLE
     }
 
-    public init(): WorkflowType {
+    public init(): WorkflowOption {
         return this.getCurrentWorkflow()
     }
 
     public backWorkflow(){
-        this._currentWorkflow = WorkflowType.EDIT_TABLE
+        this._currentWorkflow = WorkflowOption.EDIT_TABLE
         this.updateStatusBar()
     }
 
     public nextWorkflow(){
         const currentWorkflow = this._currentWorkflow
         switch(currentWorkflow){
-            case WorkflowType.EDIT_TABLE:
-                this._currentWorkflow = WorkflowType.EDIT_CHART
+            case WorkflowOption.EDIT_TABLE:
+                this._currentWorkflow = WorkflowOption.EDIT_CHART
                 this.updateStatusBar()
                 break
-            case WorkflowType.EDIT_CHART:
-                this._currentWorkflow = WorkflowType.INSERT_CHART
+            case WorkflowOption.EDIT_CHART:
+                this._currentWorkflow = WorkflowOption.INSERT_CHART
                 this.updateStatusBar()
                 break
             default:
@@ -35,9 +35,9 @@ class Workflow{
     private updateStatusBar(){
         const nextWorkflow = this._currentWorkflow
         const step = document.querySelector('status-bar > ol') as HTMLElement
-        if(nextWorkflow === WorkflowType.EDIT_TABLE){
+        if(nextWorkflow === WorkflowOption.EDIT_TABLE){
             step.style.setProperty("--progress-width", "33.33%")
-        } else if (nextWorkflow === WorkflowType.EDIT_CHART)
+        } else if (nextWorkflow === WorkflowOption.EDIT_CHART)
             step.style.setProperty("--progress-width", "66.66%")
         else
             step.style.setProperty("--progress-width", "100%")

@@ -41,6 +41,7 @@ message-dialog{
 
             .primary-button{
                 padding: var(--space-sm) var(--space-md);
+                margin-left: var(--space-sm);
             }
         }
     }

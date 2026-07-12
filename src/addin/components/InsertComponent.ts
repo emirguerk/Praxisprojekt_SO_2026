@@ -1,4 +1,7 @@
+import { UseCaseInstance } from "../classes/UseCase";
+import { UseCaseOption } from "../enums/UseCase";
 import { insertDialog } from "../functions/InsertDialog"
+import { updateDialog } from "../functions/UpdateDialog";
 
 class InsertComponent extends HTMLElement {
     connectedCallback() {
@@ -6,7 +9,24 @@ class InsertComponent extends HTMLElement {
             <custom-loading type="insert"></custom-loading>
         `
 
-        insertDialog()
+        this.executeUseCase()
+    }
+
+    private executeUseCase(){
+        const currentUseCase : UseCaseOption = UseCaseInstance.getUseCase()
+        
+        switch(currentUseCase){
+            case UseCaseOption.CREATE_CHART:
+                insertDialog()
+                return
+
+            case UseCaseOption.UPDATE_CHART:
+                updateDialog()
+                return
+
+            default:
+                throw new Error(`${currentUseCase} not initialized`)
+        }
     }
 }
 

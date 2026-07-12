@@ -20,6 +20,4 @@ export type IBarOptions = { bar: { horizontal: boolean } }
 export type ILineOptions = { curve: string }
 export type IDonutOptions = {  pie: { donut: { labels: { show: boolean, total: { show: boolean } } } } }
 
-export type IText = {
-    text: string
-}
+export type IText = { text: string }

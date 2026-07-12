@@ -1,4 +1,5 @@
-import { WorkflowType } from "../enums/WorkflowType"
+import { MessageDialog } from "../enums/MessageDialog"
+import { WorkflowOption } from "../enums/WorkflowOption"
 
 class ContentComponent extends HTMLElement {
     connectedCallback() {
@@ -6,13 +7,13 @@ class ContentComponent extends HTMLElement {
         this.innerHTML = this.getHtml(parseInt(workflow))
     }
 
-    private getHtml(currentWorkflow: WorkflowType){
+    private getHtml(currentWorkflow: WorkflowOption){
         switch(currentWorkflow){
-            case WorkflowType.EDIT_TABLE:
+            case WorkflowOption.EDIT_TABLE:
                 return this.getEditTableWorkflowHtml()
-            case WorkflowType.EDIT_CHART:
+            case WorkflowOption.EDIT_CHART:
                 return this.getEditChartWorkflowHtml()
-            case WorkflowType.INSERT_CHART:
+            case WorkflowOption.INSERT_CHART:
                 return this.getInsertChartWorkflowHtml()
             default:
                 throw Error(`${currentWorkflow} not found Workflow.`)
@@ -23,7 +24,7 @@ class ContentComponent extends HTMLElement {
         return `
             <custom-table></custom-table>
             <custom-chart></custom-chart>
-            <message-dialog type="error"></message-dialog>
+            <message-dialog type="${MessageDialog.ERROR}"></message-dialog>
         `
     }
 
@@ -36,7 +37,10 @@ class ContentComponent extends HTMLElement {
     }
 
     private getInsertChartWorkflowHtml(){
-        return `<custom-insert></custom-insert>`
+        return `
+            <custom-insert></custom-insert>
+            <message-dialog type="${MessageDialog.KEEP_PROPERTIES}"></message-dialog>
+        `
     }
 }
 

@@ -1,17 +1,23 @@
 import ApexCharts, { ApexOptions } from "apexcharts"
 import { ChartTypes } from "../enums/ChartType"
 import { IBarOptions, IBarOrLineChartData, IChartOptions, IDonutChartData, IDonutOptions, ILineOptions, IText } from "../types/IChartData"
+import { v4 as uuid } from "uuid"
+import { decode, toBase64 } from 'js-base64'
+import { IImageData } from "../types/IImageData"
 
 class Chart{
     private _isActive: boolean = false
+    private _id: string
     private _currentChartType : ChartTypes
     private _currentTitle : IText
     private _currentDescription: IText
     private _currentChartOptions: IChartOptions
     private _apexChartsInstance ?: ApexCharts
     private _chartDataMap : Map<string, number[]> = new Map()
+    private _base64?: string
 
     constructor(){
+        this._id = uuid()
         this._chartDataMap.set("Beispiel 1", [1, 2, 3])
         this._chartDataMap.set("Beispiel 2", [1, 2, 3])
         this._currentChartType = ChartTypes.BAR
@@ -20,16 +26,50 @@ class Chart{
         this._currentChartOptions = { bar: { horizontal: false } }
     }
 
-    public async getImageAsBase64(): Promise<string | null> {
+    public getImageDataAsBase64() :string {
+        const imageData = {
+            id: this._id,
+            chartDataMap: Array.from(this._chartDataMap),
+            chartType: this._currentChartType,
+            title: this._currentTitle,
+            description: this._currentDescription,
+            chartOptions: this._currentChartOptions
+        } as IImageData
+
+        const json: string = JSON.stringify(imageData)
+        return toBase64(json)
+    }
+
+    public getImageAsBase64(): string | undefined {
+        return this._base64
+    }
+
+    public async generateBase64(): Promise<void>{
         const value = await this._apexChartsInstance?.dataURI();
 
         if (!value || !("imgURI" in value)) 
-            return null
+            return
 
         const imgURI = value.imgURI;
-        const base64 = imgURI.split(",")[1];
+        const base64 = imgURI.split(",")[1]
 
-        return base64;
+        this._base64 = base64
+    }
+
+    public initChartData(chartId: string, listOfBase64: string[]){
+        for(const base64 of listOfBase64){
+            const chartData = JSON.parse(decode(base64)) as IImageData
+
+            if(chartData.id === chartId){
+                this._id = chartData.id
+                this._chartDataMap = new Map(chartData.chartDataMap)
+                this._currentChartType = chartData.chartType
+                this._currentTitle = chartData.title
+                this._currentDescription = chartData.description
+                this._currentChartOptions = chartData.chartOptions
+                return
+            }
+        }
     }
 
     public initChart(chartOption ?: ApexOptions, chartType?: ChartTypes){
@@ -76,6 +116,10 @@ class Chart{
     public updateMapData(key: string, newData: number[]){
         this._chartDataMap.set(key, newData)
         if(!this.getChartIsDestroyed()) this.updateChartView()
+    }
+
+    public getChartId(): string{
+        return this._id
     }
 
     private updateChartView(){
