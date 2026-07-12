@@ -1,0 +1,27 @@
+custom-pop-up{
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    & > p{
+        padding: var(--space-sm) var(--space-md);
+        border-radius: var(--radius-xxs);
+        color: var(--color-white);
+        max-width: 90%;
+    }
+
+    & > p:hover{
+        cursor: default;
+    }
+
+    &:has(.success) > p{
+        background-color: var(--color-success);
+    }
+
+    &:has(.error) > p{
+        background-color: var(--color-error);
+    }
+    &:has(.warn) > p{
+        background-color: var(--color-warn);
+    }
+}

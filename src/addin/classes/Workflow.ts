@@ -12,7 +12,7 @@ class Workflow{
     }
 
     public backWorkflow(){
-        this._currentWorkflow = WorkflowOption.EDIT_TABLE
+        this._currentWorkflow = this._currentWorkflow === WorkflowOption.EDIT_CHART ? WorkflowOption.EDIT_TABLE : WorkflowOption.EDIT_CHART
         this.updateStatusBar()
     }
 

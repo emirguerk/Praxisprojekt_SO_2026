@@ -1,5 +1,5 @@
 import { LoadingOption } from "../enums/LoadingOption"
-import { disconnectLoadingDialog, loadingDialog } from "../functions/LoafingDialog"
+import { disconnectLoadingDialog, loadingDialog } from "../functions/LoadingDialog"
 
 class LoadingComponent extends HTMLElement {
     connectedCallback() {
@@ -18,7 +18,10 @@ class LoadingComponent extends HTMLElement {
             case LoadingOption.LOAD:
                 return `<div>Loading <span id="point-state">.</span></div>`
             case LoadingOption.INSERT:
-                return `<div>Inserting <span id="point-state">.</span></div>`
+                return `
+                    <div>Inserting <span id="point-state">.</span></div>
+                    <button id="cancle-insert" class="button primary-button" type="button">Cancle</button>
+                `
             default:
                 return ``
         }

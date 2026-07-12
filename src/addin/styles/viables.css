@@ -12,6 +12,7 @@
     --color-6CA2BF-30:                  #6CA2BF4D;
     --color-success:                    #12B800;
     --color-error:                      #FF3838;
+    --color-warn:                       #ffac38;
 
     /* spaces */
     --space-xxs:    0.125rem;   /* 2px */
