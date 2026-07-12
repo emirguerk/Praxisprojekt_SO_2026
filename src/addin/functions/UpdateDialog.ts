@@ -5,10 +5,18 @@ import { getCustomXmlPart, safeNewExistingCustomXmlPart } from "./CustomXmlPart"
 import { getImageFormatPropertiesFromImageSelection } from "./GetImageSelection"
 import { getMessageDialogAnswer } from "./MessageDialog"
 
-export async function updateDialog(){
-    const result = await updateImage()
+let timeoutId: number;
 
-    Office.context.ui.messageParent(JSON.stringify({ success: result }))
+export function updateDialog(){
+    timeoutId = setTimeout(async () => {
+        const result = await updateImage()
+
+        Office.context.ui.messageParent(JSON.stringify({ success: result }))
+    }, 5000)
+}
+
+export function cancleUpdate(){
+    clearTimeout(timeoutId)
 }
 
 async function updateImage() : Promise<boolean> {

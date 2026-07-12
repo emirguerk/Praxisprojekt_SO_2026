@@ -39,10 +39,11 @@ function startEditTableWorkflow(){
     content.innerHTML = `<custom-content workflow="${WorkflowOption.EDIT_TABLE}"></custom-content>`
 }
 
-function startEditChartWorkflow(){
+export function startEditChartWorkflow(){
     const { backButton, nextButton, insertButton, content } = getFooterNavigationElements()
 
     backButton.classList.remove("disabled")
+    backButton.style.setProperty("display", "block")
     nextButton.style.setProperty("display", "none")
     insertButton.style.setProperty("display", "block")
 

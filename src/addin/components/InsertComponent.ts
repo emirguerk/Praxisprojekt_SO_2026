@@ -1,7 +1,7 @@
 import { UseCaseInstance } from "../classes/UseCase";
 import { UseCaseOption } from "../enums/UseCase";
-import { insertDialog } from "../functions/InsertDialog"
-import { updateDialog } from "../functions/UpdateDialog";
+import { cancleInsert, insertDialog } from "../functions/InsertDialog"
+import { cancleUpdate, updateDialog } from "../functions/UpdateDialog";
 
 class InsertComponent extends HTMLElement {
     connectedCallback() {
@@ -10,6 +10,15 @@ class InsertComponent extends HTMLElement {
         `
 
         this.executeUseCase()
+    }
+
+    disconnectedCallback() {
+        const currentUseCase : UseCaseOption = UseCaseInstance.getUseCase()
+
+        if(currentUseCase === UseCaseOption.CREATE_CHART)
+            cancleInsert()
+        else
+            cancleUpdate()
     }
 
     private executeUseCase(){

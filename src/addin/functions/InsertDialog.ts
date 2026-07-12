@@ -2,10 +2,18 @@ import { ChartInstance } from "../classes/Chart"
 import { insertContentControls } from "./ContentControls";
 import { createCustomXmlPart, getCustomXmlPart, saveNewCustomXmlPart } from "./CustomXmlPart";
 
-export async function insertDialog(){
-    const result = await insert()
+let timeoutId: number;
 
-    Office.context.ui.messageParent(JSON.stringify({ success: result }))
+export function insertDialog(){
+    timeoutId = setTimeout(async () => {
+        const result = await insert()
+
+         Office.context.ui.messageParent(JSON.stringify({ success: result }))
+    }, 5000)
+}
+
+export function cancleInsert(){
+    clearTimeout(timeoutId)
 }
 
 async function insert(): Promise<boolean>{

@@ -1,3 +1,5 @@
+import '../components/PopUpMessageComponent'
+
 export function initTaskPane(){
     const root = document.querySelector('#root')
     if(root)
@@ -11,5 +13,8 @@ export function initTaskPane(){
                 </ul>
 
             </main>
+            <footer>
+                <custom-pop-up></custom-pop-up>
+            </footer>
         `
 }

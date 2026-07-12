@@ -1,5 +1,7 @@
+import { PopUpOption } from "../enums/PopUpOption";
 import { UseCaseOption } from "../enums/UseCase";
 import { IDialogMessage } from "../types/IDialogMessage";
+import { showPopUpDialog } from "./PopUpDialog";
 
 export function dispalyDialog(useCase: UseCaseOption) {
     Office.context.ui.displayDialogAsync('https://localhost:3000/dialog.html', 
@@ -17,9 +19,13 @@ export function dispalyDialog(useCase: UseCaseOption) {
                                 return
                             }
 
-                            console.log(data.success)
-
                             dialog.close()
+
+                            if(data.success){
+                                showPopUpDialog(PopUpOption.SUCCESS)
+                            } else {
+                                showPopUpDialog(PopUpOption.ERROR)
+                            }
                         }
                     )
             }
