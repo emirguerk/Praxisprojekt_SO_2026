@@ -1,4 +1,7 @@
+import { decode } from "js-base64";
+import { ChartInstance } from "../classes/Chart";
 import { XmlPartID } from "../enums/XmlPartID";
+import { IImageData } from "../types/IImageData";
 
 export async function getCustomXmlPart(context: Word.RequestContext, items: Word.CustomXmlPart[]): Promise<Word.CustomXmlPart> {
     for (const item of items) {
@@ -55,6 +58,34 @@ export async function saveNewCustomXmlPart(context: Word.RequestContext, item: W
     listOfImageData.push(newImageData)
 
     item.setXml(`<${XmlPartID.VALUE}>${JSON.stringify(listOfImageData)}</${XmlPartID.VALUE}>`)
+    await context.sync();
+}
+
+export async function safeNewExistingCustomXmlPart(context: Word.RequestContext, item: Word.CustomXmlPart, newImageData: string){
+    const parser = new DOMParser()
+    const xmlResult = item.getXml();
+
+    await context.sync();
+
+    const xml = parser.parseFromString(xmlResult.value, "text/xml")
+    const content = xml.documentElement.textContent
+    const chartId = ChartInstance.getChartId()
+    const listOfImageData = JSON.parse(content) as string[]
+
+    const updatedList = listOfImageData.map((imageData) => {
+        const data = JSON.parse(decode(imageData)) as IImageData
+
+        if(data.id === chartId) {
+            const newd = JSON.parse(decode(newImageData)) as IImageData
+            console.log(newd.description)
+            
+            return newImageData
+        } else {
+            return imageData
+        }
+    })
+    
+    item.setXml(`<${XmlPartID.VALUE}>${JSON.stringify(updatedList)}</${XmlPartID.VALUE}>`)
     await context.sync();
 }
 

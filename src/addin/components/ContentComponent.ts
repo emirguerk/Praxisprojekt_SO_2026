@@ -1,3 +1,4 @@
+import { MessageDialog } from "../enums/MessageDialog"
 import { WorkflowOption } from "../enums/WorkflowOption"
 
 class ContentComponent extends HTMLElement {
@@ -23,7 +24,7 @@ class ContentComponent extends HTMLElement {
         return `
             <custom-table></custom-table>
             <custom-chart></custom-chart>
-            <message-dialog type="error"></message-dialog>
+            <message-dialog type="${MessageDialog.ERROR}"></message-dialog>
         `
     }
 
@@ -36,7 +37,10 @@ class ContentComponent extends HTMLElement {
     }
 
     private getInsertChartWorkflowHtml(){
-        return `<custom-insert></custom-insert>`
+        return `
+            <custom-insert></custom-insert>
+            <message-dialog type="${MessageDialog.KEEP_PROPERTIES}"></message-dialog>
+        `
     }
 }
 

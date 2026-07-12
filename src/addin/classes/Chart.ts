@@ -14,6 +14,7 @@ class Chart{
     private _currentChartOptions: IChartOptions
     private _apexChartsInstance ?: ApexCharts
     private _chartDataMap : Map<string, number[]> = new Map()
+    private _base64?: string
 
     constructor(){
         this._id = uuid()
@@ -39,16 +40,20 @@ class Chart{
         return toBase64(json)
     }
 
-    public async getImageAsBase64(): Promise<string | null> {
+    public getImageAsBase64(): string | undefined {
+        return this._base64
+    }
+
+    public async generateBase64(): Promise<void>{
         const value = await this._apexChartsInstance?.dataURI();
 
         if (!value || !("imgURI" in value)) 
-            return null
+            return
 
         const imgURI = value.imgURI;
-        const base64 = imgURI.split(",")[1];
+        const base64 = imgURI.split(",")[1]
 
-        return base64;
+        this._base64 = base64
     }
 
     public initChartData(chartId: string, listOfBase64: string[]){

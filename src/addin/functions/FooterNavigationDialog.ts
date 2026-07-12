@@ -1,3 +1,4 @@
+import { ChartInstance } from "../classes/Chart";
 import { WorkflowInstance } from "../classes/Workflow";
 import { WorkflowOption } from "../enums/WorkflowOption";
 import { IFooterNavigationBar } from "../types/IFooterNavigationBar";
@@ -14,11 +15,15 @@ export function footerNavigationDialog(){
     })
 
     nextButton.addEventListener("click", () => {        
+        if(ChartInstance.getChartIsDestroyed())
+            return
+
         WorkflowInstance.nextWorkflow()
         startEditChartWorkflow()
     })
 
-    insertButton.addEventListener("click", () => {
+    insertButton.addEventListener("click", async () => {
+        await ChartInstance.generateBase64()
         WorkflowInstance.nextWorkflow()
         startInserChartWorkflow()
     })

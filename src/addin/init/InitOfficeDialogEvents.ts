@@ -13,16 +13,20 @@ export function initOfficeDialogEvents(){
 function officeDialogParentMessageReceived(){
     Office.context.ui.addHandlerAsync(Office.EventType.DialogParentMessageReceived,
         async (args) => {
-            const message = JSON.parse(args.message);
+            const message = JSON.parse(args.message)
             const initUseCase = message.initUseCase as UseCaseOption
 
             UseCaseInstance.setUseCase(initUseCase)
     
             if(initUseCase === UseCaseOption.UPDATE_CHART){
-                    await getTagFromImageSelection().then((chartId) => {
-                        getCustomXmlPartContent().then((listOfImageData) => {
-                        ChartInstance.initChartData(chartId, listOfImageData)
-                    })
+                await getTagFromImageSelection().then((chartId) => {
+                    if(chartId){
+                            getCustomXmlPartContent().then((listOfImageData) => {
+                                ChartInstance.initChartData(chartId, listOfImageData)
+                        })
+                    } else {
+                        Office.context.ui.messageParent(JSON.stringify({ success: false }))
+                    }
                 })
             }
         }

@@ -21,6 +21,7 @@ class InsertComponent extends HTMLElement {
                 return
 
             case UseCaseOption.UPDATE_CHART:
+                updateDialog()
                 return
 
             default:
