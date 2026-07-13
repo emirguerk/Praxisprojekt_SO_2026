@@ -5,9 +5,11 @@
   "author": "emirhan.guerkan",
   "devDependencies": {
     "@types/express": "^5.0.6",
+    "@types/node": "^26.1.1",
     "@types/office-js": "^1.0.592",
     "@types/office-runtime": "^1.0.37",
     "css-loader": "^7.1.4",
+    "dotenv-webpack": "^9.0.0",
     "office-addin-dev-certs": "^2.0.7",
     "style-loader": "^4.0.0",
     "ts-loader": "^9.6.0",
@@ -25,8 +27,10 @@
   "scripts": {
     "clean:build": "if exist public\\dist rmdir public\\dist /s /q && if exist private\\dist rmdir private\\dist /s /q ",
     "build:server": "npx tsc -p tsconfigs\\tsconfig.server.json",
-    "build:addin": "webpack",
-    "build:app": "npm run clean:build && npm run build:server && npm run build:addin",
+    "build:addin:dev": "webpack",
+    "build:addin:prod": "set NODE_ENV=production&& webpack",
+    "build:app": "npm run clean:build && npm run build:server && npm run build:addin:dev",
+    "build:github": "npm run clean:build && npm run build:addin:prod",
     "start:server": "node private/dist/server.js"
   }
 }

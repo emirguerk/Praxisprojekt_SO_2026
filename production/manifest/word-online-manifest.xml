@@ -14,11 +14,11 @@
   <DisplayName DefaultValue="MyCustomCharts"/>
   <Description DefaultValue="Ein minimales Add-in zum erstellen und verwalten von Charts für Word Online."/>
 
-  <IconUrl DefaultValue="https://localhost:3000/assets/logo_32x32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/logo_80x80.png"/>
+  <IconUrl DefaultValue="https://emirguerk.github.io/Praxisprojekt_SO_2026/assets/logo_32x32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://emirguerk.github.io/Praxisprojekt_SO_2026/assets/logo_80x80.png"/>
 
   <AppDomains>
-    <AppDomain>https://localhost:3000</AppDomain>
+    <AppDomain>https://emirguerk.github.io/Praxisprojekt_SO_2026</AppDomain>
   </AppDomains>
 
   <Hosts>
@@ -26,7 +26,7 @@
   </Hosts>
 
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://localhost:3000/taskPane.html"/>
+    <SourceLocation DefaultValue="https://emirguerk.github.io/Praxisprojekt_SO_2026/taskPane.html"/>
   </DefaultSettings>
 
   <Permissions>ReadWriteDocument</Permissions>
@@ -83,13 +83,13 @@
 
     <Resources>
       <bt:Images>
-        <bt:Image id="icon16" DefaultValue="https://localhost:3000/assets/logo_16x16.png"/>
-        <bt:Image id="icon32" DefaultValue="https://localhost:3000/assets/logo_32x32.png"/>
-        <bt:Image id="icon80" DefaultValue="https://localhost:3000/assets/logo_80x80.png"/>
+        <bt:Image id="icon16" DefaultValue="https://emirguerk.github.io/Praxisprojekt_SO_2026/assets/logo_16x16.png"/>
+        <bt:Image id="icon32" DefaultValue="https://emirguerk.github.io/Praxisprojekt_SO_2026/assets/logo_32x32.png"/>
+        <bt:Image id="icon80" DefaultValue="https://emirguerk.github.io/Praxisprojekt_SO_2026/assets/logo_80x80.png"/>
       </bt:Images>
 
       <bt:Urls>
-        <bt:Url id="taskpaneUrl" DefaultValue="https://localhost:3000/taskPane.html"/>
+        <bt:Url id="taskpaneUrl" DefaultValue="https://emirguerk.github.io/Praxisprojekt_SO_2026/taskPane.html"/>
       </bt:Urls>
 
       <bt:ShortStrings>

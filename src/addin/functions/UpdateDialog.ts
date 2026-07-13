@@ -5,7 +5,7 @@ import { getCustomXmlPart, safeNewExistingCustomXmlPart } from "./CustomXmlPart"
 import { getImageFormatPropertiesFromImageSelection } from "./GetImageSelection"
 import { getMessageDialogAnswer } from "./MessageDialog"
 
-let timeoutId: number;
+let timeoutId: ReturnType<typeof setTimeout>;
 
 export function updateDialog(){
     timeoutId = setTimeout(async () => {

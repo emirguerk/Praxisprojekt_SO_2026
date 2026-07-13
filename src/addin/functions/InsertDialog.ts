@@ -2,7 +2,7 @@ import { ChartInstance } from "../classes/Chart"
 import { insertContentControls } from "./ContentControls";
 import { createCustomXmlPart, getCustomXmlPart, saveNewCustomXmlPart } from "./CustomXmlPart";
 
-let timeoutId: number;
+let timeoutId: ReturnType<typeof setTimeout>;
 
 export function insertDialog(){
     timeoutId = setTimeout(async () => {

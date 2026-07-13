@@ -1,9 +1,12 @@
 const fs = require("fs");
 const path = require("path");
+const Dotenv = require("dotenv-webpack");
 
+const isProduction = process.env.NODE_ENV === "production";
 
 module.exports = {
-  mode: "development",
+  mode: isProduction ? "production" : "development",
+
   entry: {
     taskPane: "./src/addin/taskPane.ts",
     dialog: "./src/addin/dialog.ts",
@@ -36,8 +39,18 @@ module.exports = {
     extensions: [".ts", ".js"]
   },
 
+  plugins: [
+    new Dotenv({
+      path: process.env.NODE_ENV === "production"
+        ? ".env.production"
+        : ".env.development"
+    })
+  ],
+
   output: {
     filename: "[name].js",
-    path: path.resolve(__dirname, "public/dist")
+    path: isProduction
+      ? path.resolve(__dirname, "production/dist")
+      : path.resolve(__dirname, "public/dist")
   }
 };

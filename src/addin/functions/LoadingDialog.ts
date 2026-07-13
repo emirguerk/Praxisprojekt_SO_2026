@@ -1,7 +1,7 @@
 import { WorkflowInstance } from "../classes/Workflow";
 import { startEditChartWorkflow } from "./FooterNavigationDialog";
 
-let intervalId: number;
+let intervalId: ReturnType<typeof setInterval>;
 
 export function loadingDialog(){
     const button = document.querySelector('#cancle-insert')
@@ -22,5 +22,5 @@ export function loadingDialog(){
 }
 
 export function disconnectLoadingDialog(){
-    clearInterval(intervalId as number)
+    clearInterval(intervalId)
 }

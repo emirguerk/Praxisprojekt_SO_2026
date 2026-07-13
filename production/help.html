@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart Dialog</title>
+</head>
+<body>
+    <aside>
+        <ul>
+            <li><a class="link" href="#edit-table-section">Edit Table</a></li>
+            <li><a class="link" href="#edit-chart-section">Edit Chart</a></li>
+        </ul>
+    </aside>
+    <main>
+        <details id="edit-table-section">
+            <summary>Edit Table</summary>
+
+            <h2>Edit the chart data directly in the table:</h2>
+
+            <p>Any changes made to the table are immediately reflected in the chart preview.</p>
+
+            <ul>
+                <li>Editing captions updates the corresponding labels in the chart legend.</li>
+                <li>Editing numeric values updates the chart data.</li>
+                <li>Adding or removing rows and columns changes the displayed data depending on the selected chart type.</li>
+            </ul>
+
+            <h2>Chart type behavior</h2>
+
+            <h3>Bar Chart</h3>
+
+            <ul>
+                <li>All rows and columns in the table are included in the chart.</li>
+                <li>Each row represents a data series, and each column represents a category.</li>
+            </ul>
+
+            <h3>Line Chart</h3>
+
+            <ul>
+                <li>All rows and columns in the table are included.</li>
+                <li>Changes to any values are immediately reflected in the line chart.</li>
+            </ul>
+
+            <h3>Donut Chart</h3>
+
+            <ul>
+                <li>Only the first two rows of the table are used.</li>
+                <li>The first row defines the labels.</li>
+                <li>The second row defines the values.</li>
+                <li>The chart currently displays values as percentages.</li>
+            </ul>
+
+        </details>
+        <details id="edit-chart-section">
+            <summary>Edit Chart</summary>
+
+            <h2>Customize the appearance of your chart.</h2>
+
+            <ul>
+                <li>Add or edit a chart title.</li>
+                <li>Add or edit a chart description.</li>
+                <li>Configure chart options depending on the selected chart type.</li>
+            </ul>
+
+            <h2>Chart Type Options</h2>
+
+            <h3>Bar Chart</h3>
+
+            <ul>
+                <li>Choose between a vertical or horizontal layout.</li>
+            </ul>
+
+            <h3>Line Chart</h3>
+
+            <ul>
+                <li>Select the line style: Straight, Smooth, or Stepline.</li>
+            </ul>
+
+            <h3>Donut Chart</h3>
+
+            <ul>
+                <li>Choose whether to display the total value in the center of the chart.</li>
+            </ul>
+
+        </details>
+    </main>
+</body>
+    <script src="./dist/help.js"></script>
+</html>

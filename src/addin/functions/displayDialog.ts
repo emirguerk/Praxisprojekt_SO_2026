@@ -4,7 +4,9 @@ import { IDialogMessage } from "../types/IDialogMessage";
 import { showPopUpDialog } from "./PopUpDialog";
 
 export function dispalyDialog(useCase: UseCaseOption) {
-    Office.context.ui.displayDialogAsync('https://localhost:3000/dialog.html', 
+    const apiUrl = process.env.API_URL
+
+    Office.context.ui.displayDialogAsync(`${apiUrl}/dialog.html`, 
         { height: 75, width: 80, displayInIframe: true },
             (asyncResult) => {
                 const dialog = asyncResult.value
