@@ -11,3 +11,7 @@
 | **Office Add-in Requierements** | Using office.js and a valid manifest |
 | **Security** | No user data is stored outside the Microsoft Word Online environment |
 | **Privacy Policy** | No sensitive or personal data will be published |
+
+## Testing the Prototype
+
+Bitte laden Sie folgende Manifest Datei herunter: <a href="https://emirguerk.github.io/Praxisprojekt_SO_2026/manifest/word-online-manifest.xml" download>Office Add-in Manifest herunterladen</a>
