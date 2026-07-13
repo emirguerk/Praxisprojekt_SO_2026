@@ -6,7 +6,8 @@ module.exports = {
   mode: "development",
   entry: {
     taskPane: "./src/addin/taskPane.ts",
-    dialog: "./src/addin/dialog.ts"
+    dialog: "./src/addin/dialog.ts",
+    help: "./src/addin/help.ts"
   },
 
   module: {

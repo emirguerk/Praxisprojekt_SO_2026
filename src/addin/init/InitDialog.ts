@@ -1,4 +1,5 @@
 import { LoadingOption } from "../enums/LoadingOption"
+import { WorkflowOption } from "../enums/WorkflowOption"
 
 export function initDialog(){
     const root = document.querySelector('#root') as HTMLElement
@@ -26,7 +27,7 @@ function changeLoadingState(){
         <main>
             <header-action-bar></header-action-bar>
             <div id="content-container">
-                <custom-content workflow="0"></custom-content>
+                <custom-content workflow="${WorkflowOption.EDIT_TABLE}"></custom-content>
             </div>
         </main>
         <footer>

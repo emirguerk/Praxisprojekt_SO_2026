@@ -1,10 +1,15 @@
+import { WorkflowInstance } from "../classes/Workflow"
+import { WorkflowOption } from "../enums/WorkflowOption"
 import { headerCommandBarDialog } from "../functions/HeaderCommandBarDialog"
 
 class HeaderCommandBarComponent extends HTMLElement {
     connectedCallback() {
+        const currurentWorkflow = WorkflowInstance.getCurrentWorkflow()
+        const currentLink = currurentWorkflow === WorkflowOption.EDIT_TABLE ? "#edit-table-section" : "#edit-chart-section"
+        
         this.innerHTML = `
             <nav>
-                <a class="link" href="">Need Help?</a>
+                <a class="link" href="https://localhost:3000/help.html${currentLink}" target="_blank">Need Help?</a>
             </nav>
             <ul>
                 <li><button id="update-view-button" class="button secondary-button">Update View</button></li>

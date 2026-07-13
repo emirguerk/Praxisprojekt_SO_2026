@@ -30,24 +30,34 @@ export function footerNavigationDialog(){
 }
 
 function startEditTableWorkflow(){
-    const { backButton, nextButton, insertButton, content } = getFooterNavigationElements()
+    const { backButton, nextButton, insertButton, main } = getFooterNavigationElements()
 
     backButton.classList.add("disabled")
     nextButton.style.setProperty("display", "block")
     insertButton.style.setProperty("display", "none")
 
-    content.innerHTML = `<custom-content workflow="${WorkflowOption.EDIT_TABLE}"></custom-content>`
+    main.innerHTML = `
+        <header-action-bar></header-action-bar>
+        <div id="content-container">
+            <custom-content workflow="${WorkflowOption.EDIT_TABLE}"></custom-content>
+        </div>
+    `
 }
 
 export function startEditChartWorkflow(){
-    const { backButton, nextButton, insertButton, content } = getFooterNavigationElements()
+    const { backButton, nextButton, insertButton, main } = getFooterNavigationElements()
 
     backButton.classList.remove("disabled")
     backButton.style.setProperty("display", "block")
     nextButton.style.setProperty("display", "none")
     insertButton.style.setProperty("display", "block")
 
-    content.innerHTML = `<custom-content workflow="${WorkflowOption.EDIT_CHART}"></custom-content>`
+    main.innerHTML = `
+        <header-action-bar></header-action-bar>
+        <div id="content-container">
+            <custom-content workflow="${WorkflowOption.EDIT_CHART}"></custom-content>
+        </div>
+    `
 }
 
 function startInserChartWorkflow(){
@@ -58,10 +68,10 @@ function startInserChartWorkflow(){
     insertButton.style.setProperty("display", "none")
 
     main.innerHTML = `
-            <div id="content-container">
-                <custom-content workflow="${WorkflowOption.INSERT_CHART}"></custom-content>
-            </div>
-        `
+        <div id="content-container">
+            <custom-content workflow="${WorkflowOption.INSERT_CHART}"></custom-content>
+        </div>
+    `
 }
 
 
