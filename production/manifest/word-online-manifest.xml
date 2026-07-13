@@ -17,6 +17,8 @@
   <IconUrl DefaultValue="https://emirguerk.github.io/Praxisprojekt_SO_2026/assets/logo_32x32.png"/>
   <HighResolutionIconUrl DefaultValue="https://emirguerk.github.io/Praxisprojekt_SO_2026/assets/logo_80x80.png"/>
 
+  <SupportUrl DefaultValue="https://emirguerk.github.io/Praxisprojekt_SO_2026/README.md"/>
+
   <AppDomains>
     <AppDomain>https://emirguerk.github.io/Praxisprojekt_SO_2026</AppDomain>
   </AppDomains>
