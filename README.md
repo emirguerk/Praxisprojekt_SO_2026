@@ -1,6 +1,6 @@
 # Praxisprojekt_SO_2026
 
-## Microsoft Marketplace Richtlinien
+## Microsoft Marketplace
 
 | Area | Implementation in the prototype |
 |---|---|
