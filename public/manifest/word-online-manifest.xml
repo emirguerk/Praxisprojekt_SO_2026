@@ -17,6 +17,8 @@
   <IconUrl DefaultValue="https://localhost:3000/assets/logo_32x32.png"/>
   <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/logo_80x80.png"/>
 
+  <SupportUrl DefaultValue="https://localhost:3000/support.html"/>
+  
   <AppDomains>
     <AppDomain>https://localhost:3000</AppDomain>
   </AppDomains>
