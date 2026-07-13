@@ -2,7 +2,7 @@
 
 ## Microsoft Marketplace Richtlinien
 
-| Bereich | Umsetzung im Prototyp |
+| Area | Implementation in the prototype |
 |---|---|
 | **Title** | MyCustomCharts |
 | **Summary** | This project is developing a Microsoft Word add-in that allows users to create, insert, and manage charts directly within Word Online. The add-in extends Word's existing functionality by providing a built-in way to edit charts without switching to external applications. |
