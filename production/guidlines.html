@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart Dialog</title>
+</head>
+<body>
+    <aside>
+        <ul>
+            <li><a class="link" href="#testing">Testing the Prototyp</a></li>
+            <li><a class="link" href="#developing">Developing the Prototyp</a></li>
+        </ul>
+    </aside>
+    <main>
+        <section id="testing">
+            <h1>Testing the Prototyp</h1>
+
+            <ol>
+                <li>
+                    <strong>Download the Manifest</strong><br>
+                    Download the manifest file of the Add-in:
+                    <a href="./manifest/word-online-manifest.xml" target="_blank" download>Download manifest.xml - (right-click → Save as)</a>
+                </li>
+
+                <li>
+                    <strong>Open Word Online</strong><br>
+                    Open any document in 
+                    <a href="https://word.cloud.microsoft/" target="_blank">Word Online</a>.
+                </li>
+
+                <li>
+                    <strong>Upload the Add-in</strong><br>
+                    <figure>
+                        <img src="./assets/Upload-Manifest.png" alt="upload manifest section" width="400" height="auto">
+                        <figcaption>
+                            Click on the <strong>Add-in</strong> tab in the ribbon. 
+                            In the <strong>Add-ins</strong> section open <strong>My Add-ins</strong> 
+                            and select <strong>Upload My Add-in</strong>. 
+                            Choose the downloaded <strong>manifest.xml</strong> and confirm the upload.
+                        </figcaption>
+                    </figure>
+                </li>
+
+                <li>
+                    <strong>Start the Add-in</strong><br>
+                    <figure>
+                        <img src="./assets/Ribbon.png" alt="ribbon excample">
+                        <figcaption>
+                            After the upload a new tab appears in the <strong>Insert</strong> tab in the ribbon. 
+                            Click the button there to open the prototype.
+                        </figcaption>
+                    </figure>
+                </li>
+            </ol>
+
+
+        </section>
+        <section id="developing">
+            <h1>Developing the Prototyp</h1>
+
+            <ol>
+                <li>
+                    <strong>Clone the Repository</strong><br>
+                    Clone the project from GitHub:
+                    <pre><code><strong>git clone https://github.com/emirguerk/Praxisprojekt_SO_2026.git</strong></code></pre>
+                </li>
+
+                <li>
+                    <strong>Install Dependencies</strong><br>
+                    Navigate into the project folder and install all dependencies:
+                    <pre><code><strong>npm install</strong></code></pre>
+                </li>
+
+                <li>
+                    <strong>Generate Certificates</strong><br>
+                    Generate the local HTTPS certificates required for Word Online:
+                    <pre><code><strong>npx office-addin-dev-certs install</strong></code></pre>
+                    Move the generated certificate files into the <strong>private/certs</strong> folder.
+                </li>
+
+                <li>
+                    <strong>Build the Project</strong><br>
+                    Build the application:
+                    <pre><code><strong>npm run build:app</strong></code></pre>
+                </li>
+
+                <li>
+                    <strong>Start the Server</strong><br>
+                    Start the local development server:
+                    <pre><code><strong>npm run start:server</strong></code></pre>
+                </li>
+
+                <li>
+                    <strong>Download the Local Manifest</strong><br>
+                    Open the following URL in your browser to download the local manifest:
+                    <pre><code><strong>https://localhost:3000/manifest/download</strong></code></pre>
+                    Upload the downloaded <strong>manifest.xml</strong> to Word Online as described in the 
+                    <a href="#testing">Testing section</a>.
+                </li>
+            </ol>
+
+        </section>
+    </main>
+</body>
+    <script src="./dist/guideline.js"></script>
+</html>
