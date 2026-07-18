@@ -1,4 +1,6 @@
-# Praxisprojekt_SO_2026
+# Praxisprojekt_SO_2026 - MyCustomCharts
+
+<img width="917" height="481" alt="Screenshot 2026-07-18 153848" src="https://github.com/user-attachments/assets/cc0f99fb-1c63-47aa-a506-e0c3ee1cfdb9" />
 
 ## Microsoft Marketplace
 
@@ -20,3 +22,10 @@
 ## Installation Guideline
 
 For testing or developing the prototyp you can follow the guide line page: [Installation Guide Line](https://emirguerk.github.io/Praxisprojekt_SO_2026/guidlines.html)
+
+## Contributers
+
+[Emirhan Gürkan](https://github.com/emirguerk) - Developer
+
+[Volker Schaefer](https://github.com/vschaefer) - Mentor
+
