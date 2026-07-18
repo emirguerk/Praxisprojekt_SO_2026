@@ -10,7 +10,8 @@ module.exports = {
   entry: {
     taskPane: "./src/addin/taskPane.ts",
     dialog: "./src/addin/dialog.ts",
-    help: "./src/addin/help.ts"
+    help: "./src/addin/help.ts",
+    guideline: "./src/addin/guideline.ts"
   },
 
   module: {
