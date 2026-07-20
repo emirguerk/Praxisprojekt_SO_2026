@@ -20,7 +20,7 @@ class LoadingComponent extends HTMLElement {
             case LoadingOption.INSERT:
                 return `
                     <div>Inserting <span id="point-state">.</span></div>
-                    <button id="cancle-insert" class="button primary-button" type="button">Cancle</button>
+                    <button id="cancle-insert" class="button primary-button" type="button">Cancel</button>
                 `
             default:
                 return ``

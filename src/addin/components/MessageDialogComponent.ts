@@ -40,7 +40,7 @@ class MessageDialogComponent extends HTMLElement {
             <div class="message-dialog-container">
                 <div id="message-dialog">
                     <h1>Keep Properties</h1>
-                    <p>Do you want to keep image format properties?</p>
+                    <p>Would you like to keep the existing formatting, such as alt text, descriptions, and sizes? If you confirm, all other properties will be lost.</p>
                     <div id="button-container">
                         <button id="no-button" class="button primary-button">No</button>
                         <button id="yes-button" class="button primary-button">Yes</button>

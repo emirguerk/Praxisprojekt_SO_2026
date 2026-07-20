@@ -1,3 +1,3 @@
 export enum PopUpOption{
-    SUCCESS, ERROR, WARNING
+    SUCCESS, ERROR, WARNING, SYNC
 }

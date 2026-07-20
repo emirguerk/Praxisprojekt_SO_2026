@@ -76,9 +76,6 @@ export async function safeNewExistingCustomXmlPart(context: Word.RequestContext,
         const data = JSON.parse(decode(imageData)) as IImageData
 
         if(data.id === chartId) {
-            const newd = JSON.parse(decode(newImageData)) as IImageData
-            console.log(newd.description)
-            
             return newImageData
         } else {
             return imageData
