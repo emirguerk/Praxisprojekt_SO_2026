@@ -13,9 +13,12 @@ export function showPopUpDialog(popUpOption: PopUpOption) {
     } else if (popUpOption === PopUpOption.ERROR){
         pElement.classList.add('error')
         pElement.textContent = "The chart could not be inserted. To update an existing chart, please select it in the document first."
-    } else {
+    } else if (popUpOption === PopUpOption.WARNING){
         pElement.classList.add('warn')
         pElement.textContent = "Please sync the document before continuing to make sure all charts are up to date."
+    } else {
+        pElement.classList.add('success')
+        pElement.textContent = "The document has been successfully synchronized."
     }
 
     setTimeout(() => {

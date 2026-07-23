@@ -23,12 +23,13 @@ async function insert(): Promise<boolean>{
         if (!base64) return false;
 
         await Word.run(async (context) => {
-            const image = context.document.body.insertInlinePictureFromBase64(
+            const getSelection = context.document.getSelection()
+            const image = getSelection.insertInlinePictureFromBase64(
                 base64,
                 Word.InsertLocation.end
             )
 
-            addContentControls(image)
+            await addContentControls(image)
 
             await addCustomXmlPart(context)
         })
@@ -40,8 +41,8 @@ async function insert(): Promise<boolean>{
     return true;
 }
 
-function addContentControls(image: Word.InlinePicture){
-    insertContentControls(image)
+async function addContentControls(image: Word.InlinePicture){
+    await insertContentControls(image)
 }
 
 async function addCustomXmlPart(context: Word.RequestContext){

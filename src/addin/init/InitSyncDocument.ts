@@ -2,17 +2,23 @@ import { decode } from "js-base64"
 import { getCustomXmlPart } from "../functions/CustomXmlPart"
 import { IImageData } from "../types/IImageData"
 import { XmlPartID } from "../enums/XmlPartID"
+import { PopUpOption } from "../enums/PopUpOption"
+import { showPopUpDialog } from "../functions/PopUpDialog"
 
 export function initSyncDocument(){    
     const newChartDialogButton = document.querySelector('#sync-document-button')
-    newChartDialogButton?.addEventListener('click', async () => {        
-        await Word.run(async (context) => {
-            await deleteEmptyContentControls(context);
-        })
+    newChartDialogButton?.addEventListener('click', async () => {      
+        try{
+            await Word.run(async (context) => {
+                await deleteEmptyContentControls(context);
+            })
 
-        await Word.run(async (context) => {
-            await syncCustomXml(context);
-        })
+            await Word.run(async (context) => {
+                await syncCustomXml(context);
+            })
+        } finally {
+            showPopUpDialog(PopUpOption.SYNC)
+        }
     })
 }
 
@@ -83,6 +89,4 @@ async function syncCustomXml(context: Word.RequestContext) {
     );
 
     await context.sync();
-
-    console.log(syncedList);
 }

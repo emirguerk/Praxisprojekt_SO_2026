@@ -122,8 +122,7 @@ class FormComponent extends HTMLElement {
             
             <label for="description">Description</label>
             <textarea name="description"
-                id="description"
-                value="${description}"></textarea>
+                id="description">${description}</textarea>
         `
     }
 }
