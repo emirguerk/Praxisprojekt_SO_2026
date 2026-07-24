@@ -75,18 +75,35 @@ async function replaceImage(keepFormat: boolean, format?: IImageFormatProps){
         await context.sync();
 
         if(keepFormat){
-            updatedImage.set({
-                width: format!!.width as number,
-                height: format!!.height as number,
-                altTextTitle: format!!.altTextTitle as string,
-                altTextDescription: format!!.altTextDescription as string
-            })
-
-            await context.sync()
+            await executeKeepFormat(context, updatedImage, format as IImageFormatProps)
         }
 
         await updateCustomXmlPart(context)
     })
+}
+
+async function executeKeepFormat(context: Word.RequestContext, updatedImage: Word.InlinePicture, format: IImageFormatProps){
+    updatedImage.set({
+        width: format!!.width as number,
+        height: format!!.height as number,
+        altTextTitle: format!!.altTextTitle as string,
+        altTextDescription: format!!.altTextDescription as string
+    })
+
+    await context.sync()
+
+    updatedImage.load("width");
+    updatedImage.load("height");
+    await context.sync();
+
+    while (updatedImage.width !== format.width || updatedImage.height !== format.height) {
+        updatedImage.set({ lockAspectRatio: false, width: format.width, height: format.height})
+        await context.sync()
+
+        updatedImage.load("width")
+        updatedImage.load("height")
+        await context.sync()
+    }
 }
 
 function getUpdateMessageDialogElements(){
