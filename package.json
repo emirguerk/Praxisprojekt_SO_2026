@@ -26,11 +26,12 @@
   },
   "scripts": {
     "clean:build": "if exist public\\dist rmdir public\\dist /s /q && if exist private\\dist rmdir private\\dist /s /q ",
+    "clean:build:production": "if exist production\\dist rmdir production\\dist /s /q",
     "build:server": "npx tsc -p tsconfigs\\tsconfig.server.json",
     "build:addin:dev": "webpack",
     "build:addin:prod": "set NODE_ENV=production&& webpack",
     "build:app": "npm run clean:build && npm run build:server && npm run build:addin:dev",
-    "build:github": "npm run clean:build && npm run build:addin:prod",
+    "build:github": "npm run clean:build:production && npm run build:addin:prod",
     "start:server": "node private/dist/server.js"
   }
 }

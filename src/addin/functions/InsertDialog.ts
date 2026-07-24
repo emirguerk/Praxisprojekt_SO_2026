@@ -29,6 +29,8 @@ async function insert(): Promise<boolean>{
                 Word.InsertLocation.end
             )
 
+            await context.sync()
+
             await addContentControls(image)
 
             await addCustomXmlPart(context)
