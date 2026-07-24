@@ -75,10 +75,14 @@ async function replaceImage(keepFormat: boolean, format?: IImageFormatProps){
         await context.sync();
 
         if(keepFormat){
-            updatedImage.width = format!!.width
-            updatedImage.height = format!!.height
-            updatedImage.altTextTitle = format!!.altTextTitle
-            updatedImage.altTextDescription = format!!.altTextDescription
+            updatedImage.set({
+                width: format!!.width as number,
+                height: format!!.height as number,
+                altTextTitle: format!!.altTextTitle as string,
+                altTextDescription: format!!.altTextDescription as string
+            })
+
+            await context.sync()
         }
 
         await updateCustomXmlPart(context)
