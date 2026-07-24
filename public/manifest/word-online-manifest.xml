@@ -7,7 +7,7 @@
   xsi:type="TaskPaneApp">
 
   <Id>c6890c26-5bbb-40ed-a321-37f07909a2f0</Id>
-  <Version>1.0.0.0</Version>
+  <Version>1.0.1.0</Version>
   <ProviderName>Emirhan</ProviderName>
   <DefaultLocale>de-DE</DefaultLocale>
 
