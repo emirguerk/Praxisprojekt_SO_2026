@@ -40,7 +40,7 @@ class Workflow{
         } else if (nextWorkflow === WorkflowOption.EDIT_CHART)
             step.style.setProperty("--progress-width", "66.66%")
         else
-            step.style.setProperty("--progress-width", "100%")
+            step.style.setProperty("--progress-width", "0%")
     }
 
     public getCurrentWorkflow(){
