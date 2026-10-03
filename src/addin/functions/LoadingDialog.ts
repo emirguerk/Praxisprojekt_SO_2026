@@ -15,7 +15,7 @@ export function loadingDialog(){
 
     const points = document.querySelector('div #point-state') as HTMLElement
     intervalId = setInterval(() => {
-        points.textContent.length === 3 
+        points.textContent.length === 6 
         ? points.textContent = '.'
         : points.textContent += '.'
     }, 500)
