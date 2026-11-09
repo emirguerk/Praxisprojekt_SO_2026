@@ -28,4 +28,3 @@ For testing or developing the prototyp you can follow the guide line page: [Inst
 [Emirhan Gürkan](https://github.com/emirguerk) - Developer
 
 [Volker Schaefer](https://github.com/vschaefer) - Mentor
-
